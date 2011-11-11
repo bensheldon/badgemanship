@@ -223,7 +223,6 @@ td { vertical-align: top; }
 
 header {
   position: fixed;
-  position: static 9;
   top: 0;
   left:  0;
   min-height: 40px;
