@@ -37,7 +37,7 @@ audio:not([controls]) { display: none; }
 
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
-body { margin: 0; font-size: 13px; line-height: 1.231; }
+body { margin: 0; font-size: 16px; line-height: 1.231; }
 
 body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 
@@ -307,7 +307,7 @@ article.activity footer {
 }
 
 article.activity footer img {
-  height: 1.5em;
+  height: 1.25em;
   vertical-align: text-top;
   margin-right: .5em;
 }
