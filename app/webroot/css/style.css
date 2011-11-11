@@ -216,6 +216,11 @@ td { vertical-align: top; }
    Author:
    ========================================================================== */
 
+#container {
+  margin: 0 auto;
+  max-width: 480px;
+}
+
 header {
   position: fixed;
   position: static 9;
@@ -223,13 +228,13 @@ header {
   left:  0;
   min-height: 40px;
   width: 100%;
+  margin-bottom: 5px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   z-index: 1500;
   color: #fff;
   background: #000;
-  position: relative;
   padding: 5px;
 }
 
@@ -257,12 +262,9 @@ header a#add-activity {
   border: 2px solid #aaa;
 }
 
-#container {
-  margin: 0 auto;
-  max-width: 480px;
+div#main {
+  padding: 10px;
 }
-
-
 
 
 
