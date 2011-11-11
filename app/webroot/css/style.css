@@ -227,14 +227,12 @@ header {
   left:  0;
   min-height: 40px;
   width: 100%;
-  margin-bottom: 5px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   z-index: 1500;
   color: #fff;
   background: #000;
-  padding: 5px;
 }
 
 header h1 {
@@ -247,7 +245,7 @@ header h1 {
 header a#add-activity {
   position: absolute;
   display: block;
-  top: 10px;
+  top: 4px;
   left: 10px;
   font-size: 2em;
   text-decoration: none;
@@ -262,13 +260,51 @@ header a#add-activity {
 }
 
 div#main {
-  padding: 1em 1em;
+  margin-top: 40px;
+  padding: .5em .5em;
 }
 
 
+article.activity {
+  padding-bottom:  10px;
+  border-bottom: 1px solid #333;
+}
 
 
+article.activity dl,
+article.activity dt,
+article.activity dd
+ {
+  margin: 0;
+  padding: 0;
+}
 
+article.activity dl {
+  font-weight: bold;
+}
+
+article.activity dt,
+article.activity dd {
+  float: left;
+}
+
+article.activity dt:after {
+  content: " X ";
+  margin: 0 5px 0 3px;
+  font-size: .8em;
+  color: #666;
+}
+
+article.activity footer {
+    margin-left: 50%;
+    
+}
+
+article.activity footer img {
+  height: 1.5em;
+  vertical-align: text-top;
+  margin-right: .5em;
+}
 
 
 
