@@ -26,7 +26,7 @@
 
   <div id="container">
     <header>
-      <h1>Badgemanship</h1>
+      <h1><a href="/">Badgemanship</a></h1>
       <a href="/activities/add" id="add-activity">+</a>
     </header>
     <div id="main" role="main">
