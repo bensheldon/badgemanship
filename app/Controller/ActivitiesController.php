@@ -40,6 +40,22 @@ class ActivitiesController extends AppController {
 	}
 
 	function add() {
+	  if ( ($user_id = $this->Auth->user('id')) && (!empty($this->data)) ) {
+	    $this->Activity->create();
+	    $this->Activity->set(array(
+	        'user_id' => $user_id,
+	        'description' => $this->data['Activity']['description'],
+	        'quantity' => $this->data['Activity']['quantity'],
+	        'measure' => $this->data['Activity']['measure'],
+	    ));
+	    
+	    if ($this->Activity->save()) {
+	    	$this->Session->setFlash('Your activity has been saved.');
+	    	$this->redirect(array('action' => 'index'));
+	    }
+	  
+	  }
+/*	
 		// First check for ajax
 		if ($this->RequestHandler->isAjax()) {
 			Configure::write('debug', 0);
@@ -60,7 +76,7 @@ class ActivitiesController extends AppController {
 				$this->Session->setFlash('Your activity has been saved.');
 				$this->redirect(array('action' => 'index'));
 			}
-		}
+		} */
 	}
 
 	function edit($id = null) {
