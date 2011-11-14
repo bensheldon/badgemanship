@@ -21,7 +21,7 @@ class AppController extends Controller {
     $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'plugin' => null); 
     //$this->Auth->loginRedirect = array('controller' => 'dashboard', 'action' => 'index');
     $this->Auth->loginError = 'No username and password was found with that combination.';
-    $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'index');
+    $this->Auth->logoutRedirect = array('controller' => 'activities', 'action' => 'index');
     $this->Auth->user(); // BUG ?! Necessary to load the User data from session, otherwise it appears that you've never logged in
     
   }

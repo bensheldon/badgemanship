@@ -4,6 +4,7 @@ class ActivitiesController extends AppController {
 	var $helpers = array('Html', 'Html', 'Form', 'Ajax', 'Markdown', 'Time'); 
 	var $components = array('RequestHandler');
 	var $actsAs = array('Containable');
+	var $uses = array('Activity', 'User', 'UserMeasure');
 
 
 	function index() {
@@ -37,6 +38,19 @@ class ActivitiesController extends AppController {
 		$this->Comment->delete($id);
 		$this->Session->setFlash('The comment with id: '.$id.' has been deleted.');
 		$this->redirect(array('action'=>'index'));
+	}
+	
+	function sum($username) {
+	  $user_id = $this->Auth->user('id');
+	  
+	  $user = $this->UserMeasure->find('all', 
+	    array(
+	      'conditions' => array('UserMeasure.user_id' => $user_id),
+	      'contain' => array('Measure'),
+	    )
+	  );
+	  
+	  $this->set('user', $user);
 	}
 
 	function add() {

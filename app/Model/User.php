@@ -7,6 +7,10 @@ class User extends AppModel {
       'className'    => 'Activity',            
       'foreignKey'    => 'user_id'
     ),
+    'UserMeasure' => array(            
+      'className'    => 'UserMeasure',            
+      'foreignKey'    => 'user_id'
+    ),
   );  
 
   // Don't Hash Passwords because they aren't being used

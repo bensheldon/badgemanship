@@ -3,11 +3,24 @@
 class Measure extends AppModel {
   var $name = 'Measure';
   
+  var $hasMany = array(
+    'Activity' => array(
+                'className'     => 'Activity',
+                'foreignKey'    => 'measure_id',
+                'order'         => 'Activity.created DESC',
+                'limit'         => '5',
+                'dependent'     => false,
+                )
+    );
+  
   //var $order = array("Measure.id" => "DESC");
   
   
   public function saveMeasure($find_measure = '', $quantity = 0) {
     App::uses('Core','Inflector');
+    
+    // Strip out double spaces, tabs and newlines
+    $find_measure = preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $find_measure);
   
     if ($isSingle = $this->isSingle($quantity)) {
       $measure = $this->find(
@@ -39,9 +52,6 @@ class Measure extends AppModel {
       return $this->read();
     }
   }
-  
-  
-  
   
   private function isSingle($quantity) {
     if ( (int) $quantity == 1 ) {

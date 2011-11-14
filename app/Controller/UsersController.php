@@ -97,4 +97,14 @@ class UsersController extends AppController {
     $this->Session->setFlash('You have been logged out');
     $this->redirect($this->Auth->logout());
   } 
+  
+  function rebuild() {
+    $this->loadModel('Activity');
+    $user_id = $this->Auth->user('id');
+    
+    $this->Activity->rebuildUser($user_id);
+    
+    $this->Session->setFlash('Your measure sums have been rebuilt.');
+    $this->redirect(array('controller' => 'activities', 'action' => 'index'));
+  }
 }
