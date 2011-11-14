@@ -75,7 +75,8 @@ class Activity extends AppModel {
     $this->UserMeasure->addMeasure(
       $this->data['Activity']['user_id'],
       $this->data['Activity']['measure_id'],
-      $this->data['Activity']['quantity']);
+      $this->data['Activity']['quantity'],
+      $this->data['Activity']['created']);
     return TRUE;
   } 
 }
