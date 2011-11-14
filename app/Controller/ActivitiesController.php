@@ -43,14 +43,14 @@ class ActivitiesController extends AppController {
 	function sum($username) {
 	  $user_id = $this->Auth->user('id');
 	  
-	  $user = $this->UserMeasure->find('all', 
+	  $user_measure = $this->UserMeasure->find('all', 
 	    array(
 	      'conditions' => array('UserMeasure.user_id' => $user_id),
 	      'contain' => array('Measure'),
 	    )
 	  );
 	  
-	  $this->set('user', $user);
+	  $this->set('measures', $user_measure);
 	}
 
 	function add() {
