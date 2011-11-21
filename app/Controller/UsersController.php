@@ -80,7 +80,7 @@ class UsersController extends AppController {
         // Log the user in
         if ($this->Auth->login($user_data)) {
           $this->Session->setFlash('You, <strong>' . $user['User']['screen_name'] ."</strong>, have been successfully logged in via Twitter.");
-          $this->redirect(array('controller' => 'Users', 'action' => 'index'));
+          $this->redirect(array('controller' => 'Activities', 'action' => 'index'));
         }
         else {
           //$this->Session->setFlash('We were not able to log you in.');

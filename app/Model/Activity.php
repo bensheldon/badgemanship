@@ -2,11 +2,8 @@
 
 class Activity extends AppModel {
   var $name = 'Activity';
-  
   var $order = array("Activity.created" => "DESC");
-  
   var $actsAs = array('Containable');
-  
   var $belongsTo =  array(
     'User' => array(            
       'className'    => 'User',            
@@ -18,13 +15,11 @@ class Activity extends AppModel {
     ),
   );
   
+  /**
+   * beforeSave function
+   */
   function beforeSave() {
     App::uses('Measure', 'Model');
-    
-     //Add the User_id if not set
-//    if (empty($this->data['Activity']['user_id'])) {
-//      $this->data['Activity']['user_id'] =  $this->Auth->user('id');
-//    }
      
     // Associate a Measure if not set
     if (empty($this->data['Activity']['measure_id'])) {
@@ -35,6 +30,24 @@ class Activity extends AppModel {
     return TRUE;
   }
   
+  /**
+   * afterSave function
+   */
+  function afterSave() {
+    App::uses('UserMeasure', 'Model');
+    $this->UserMeasure = new UserMeasure;
+    //Add to the User's totals
+    $this->UserMeasure->addMeasure(
+      $this->data['Activity']['user_id'],
+      $this->data['Activity']['measure_id'],
+      $this->data['Activity']['quantity'],
+      $this->data['Activity']['created']);
+    return TRUE;
+  } 
+  
+  /**
+   * Rebuilds a User's aggregated measure data
+   */
   public function rebuildUser($user_id) {
     App::uses('Activity', 'Model');
     App::uses('Measure', 'Model');
@@ -67,16 +80,4 @@ class Activity extends AppModel {
         $activity['Activity']['created']);    
     }  
   }
-  
-  function afterSave() {
-    App::uses('UserMeasure', 'Model');
-    $this->UserMeasure = new UserMeasure;
-    //Add to the User's totals
-    $this->UserMeasure->addMeasure(
-      $this->data['Activity']['user_id'],
-      $this->data['Activity']['measure_id'],
-      $this->data['Activity']['quantity'],
-      $this->data['Activity']['created']);
-    return TRUE;
-  } 
 }

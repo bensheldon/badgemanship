@@ -248,11 +248,10 @@ header h1 a:hover {
   text-decoration: none;
 }
 
-header a#add-activity {
+header a#add-activity,
+header a#show-nav {
   position: absolute;
   display: block;
-  top: 4px;
-  left: 8px;
   font-size: 2em;
   text-decoration: none;
   display: block;
@@ -265,8 +264,27 @@ header a#add-activity {
   border: 2px solid #aaa;
 }
 
+header a#add-activity {
+  top: 4px;
+  left: 8px;
+}
+
+header a#show-nav {
+  top: 4px;
+  right: 8px;
+  font-size: 1.25em;
+  line-height: 1.4em;
+}
+
+nav#primary-nav {
+  display: none; /* hide it on load */
+  border: 2px solid #888;
+  padding: .25em;
+  background: #ddd;
+}
+
 div#main {
-  margin-top: 2em;
+  margin-top: 42px;
   padding: .5em .5em;
 }
 
