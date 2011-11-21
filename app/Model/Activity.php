@@ -13,6 +13,10 @@ class Activity extends AppModel {
       'className'    => 'Measure',
       'foreignKey'   => 'measure_id'
     ),
+    'Project' =>array(
+      'className'    => 'Project',
+      'foreignKey'   => 'project_id'
+    ),
   );
   
   /**
@@ -42,6 +46,15 @@ class Activity extends AppModel {
       $this->data['Activity']['measure_id'],
       $this->data['Activity']['quantity'],
       $this->data['Activity']['created']);
+      
+      // if there is a Project ID, we need to associate it
+      if( (isset($this->data['Activity']['project_id']))
+            && ($this->data['Activity']['project_id'] != 0) ) {
+        App::uses('UserMeasure', 'Project');
+        $this->Project = new Project;
+        $this->Project->addActivity($this->data['Activity']);
+      }
+    
     return TRUE;
   } 
   

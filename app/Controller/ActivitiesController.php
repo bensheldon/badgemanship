@@ -4,7 +4,7 @@ class ActivitiesController extends AppController {
 	var $helpers = array('Html', 'Html', 'Form', 'Ajax', 'Markdown', 'Time'); 
 	var $components = array('RequestHandler');
 	var $actsAs = array('Containable');
-	var $uses = array('Activity', 'User', 'UserMeasure');
+	var $uses = array('Activity', 'User', 'Project', 'UserMeasure');
 
 
 	function index() {
@@ -54,6 +54,15 @@ class ActivitiesController extends AppController {
 	}
 
 	function add() {
+	  $user_id = $this->Auth->user('id');
+	  $this->set('projects', $this->Project->find(
+	    'all', array(
+	      'conditions' => array(
+	        'User.id' => $user_id,
+	      )
+	    )
+	  ));	  
+	
 	  if ( ($user_id = $this->Auth->user('id')) && (!empty($this->data)) ) {
 	    $this->Activity->create();
 	    $this->Activity->set(array(
@@ -62,6 +71,12 @@ class ActivitiesController extends AppController {
 	        'quantity' => $this->data['Activity']['quantity'],
 	        'measure' => $this->data['Activity']['measure'],
 	    ));
+	    
+	    if( isset($this->data['Activity']['project_id']) 
+	          && ($this->data['Activity']['project_id'] != 0) ) {
+	      $this->Activity->set('project_id', $this->data['Activity']['project_id']);
+	    }
+	    
 	    
 	    if ($this->Activity->save()) {
 	    	$this->Session->setFlash('Your activity has been saved.');

@@ -295,36 +295,30 @@ article.activity {
 }
 
 
-article.activity dl,
-article.activity dt,
-article.activity dd
- {
+article.activity footer > * {
+  width: 50%;
   margin: 0;
-  padding: 0;
 }
 
-article.activity dl {
+article.activity p.measure,
+article.activity p.project {
+  float: left;
+  clear: left;
+}
+
+article.activity span.label,
+article.activity span.quantity {
   font-weight: bold;
 }
 
-article.activity dt,
-article.activity dd {
-  float: left;
+article.activity p.author,
+article.activity p.published {
+  margin-left: 50%;
 }
 
-article.activity dt:after {
-  content: " X ";
-  margin: 0 5px 0 3px;
-  font-size: .8em;
-  color: #666;
-}
 
-article.activity footer {
-    margin-left: 50%;
-    
-}
 
-article.activity footer img {
+article.activity footer p.author img {
   height: 1.25em;
   vertical-align: text-top;
   margin-right: .5em;
