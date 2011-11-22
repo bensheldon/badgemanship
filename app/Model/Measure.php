@@ -13,6 +13,10 @@ class Measure extends AppModel {
                 )
     );
   
+  public $virtualFields = array(
+      'users_count' => 'Measure.measures_sum_count'
+  );
+  
   //var $order = array("Measure.id" => "DESC");
   
   

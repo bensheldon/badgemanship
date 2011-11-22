@@ -7,15 +7,18 @@ class Activity extends AppModel {
   var $belongsTo =  array(
     'User' => array(            
       'className'    => 'User',            
-      'foreignKey'   => 'user_id'
+      'foreignKey'   => 'user_id',
+      'counterCache' => true,
     ),
     'Measure' =>array(
       'className'    => 'Measure',
-      'foreignKey'   => 'measure_id'
+      'foreignKey'   => 'measure_id',
+      'counterCache' => true,
     ),
     'Project' =>array(
       'className'    => 'Project',
-      'foreignKey'   => 'project_id'
+      'foreignKey'   => 'project_id',
+      'counterCache' => true,
     ),
   );
   
@@ -38,10 +41,11 @@ class Activity extends AppModel {
    * afterSave function
    */
   function afterSave() {
-    App::uses('UserMeasure', 'Model');
-    $this->UserMeasure = new UserMeasure;
+    App::uses('MeasuresSum', 'Model');
+    $this->MeasuresSum = new MeasuresSum;
     //Add to the User's totals
-    $this->UserMeasure->addMeasure(
+    $this->MeasuresSum->addMeasure(
+      'user',
       $this->data['Activity']['user_id'],
       $this->data['Activity']['measure_id'],
       $this->data['Activity']['quantity'],
@@ -50,9 +54,9 @@ class Activity extends AppModel {
       // if there is a Project ID, we need to associate it
       if( (isset($this->data['Activity']['project_id']))
             && ($this->data['Activity']['project_id'] != 0) ) {
-        App::uses('UserMeasure', 'Project');
+        App::uses('Project', 'Model');
         $this->Project = new Project;
-        $this->Project->addActivity($this->data['Activity']);
+        $this->Project->addActivity($this->data);
       }
     
     return TRUE;

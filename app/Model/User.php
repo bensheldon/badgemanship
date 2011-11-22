@@ -7,9 +7,10 @@ class User extends AppModel {
       'className'    => 'Activity',            
       'foreignKey'    => 'user_id'
     ),
-    'UserMeasure' => array(            
-      'className'    => 'UserMeasure',            
-      'foreignKey'    => 'user_id'
+    'MeasuresSum' => array(            
+      'className'   => 'MeasuresSum',            
+      'foreignKey'  => 'parent_id',
+      'conditions'  => array('MeasuresSum.parent_type' => 'user'),
     ),
   );  
 

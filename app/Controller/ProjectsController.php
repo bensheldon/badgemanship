@@ -4,7 +4,7 @@ class ProjectsController extends AppController {
 	var $helpers = array('Html', 'Html', 'Form', 'Ajax', 'Markdown', 'Time'); 
 	var $components = array('RequestHandler');
 	var $actsAs = array('Containable');
-	var $uses = array('Project', 'Activity', 'User', 'UserMeasure');
+	var $uses = array('Project', 'Activity', 'User');
 
 
 	function index() {
@@ -55,6 +55,7 @@ class ProjectsController extends AppController {
 	    }
 	  
 	  }
+	  
 	}
 
 	function edit($id = null) {

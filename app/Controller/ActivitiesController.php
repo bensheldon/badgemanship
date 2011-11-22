@@ -4,7 +4,7 @@ class ActivitiesController extends AppController {
 	var $helpers = array('Html', 'Html', 'Form', 'Ajax', 'Markdown', 'Time'); 
 	var $components = array('RequestHandler');
 	var $actsAs = array('Containable');
-	var $uses = array('Activity', 'User', 'Project', 'UserMeasure');
+	var $uses = array('Activity', 'User', 'Project', 'MeasuresSum');
 
 
 	function index() {
@@ -43,14 +43,17 @@ class ActivitiesController extends AppController {
 	function sum($username) {
 	  $user_id = $this->Auth->user('id');
 	  
-	  $user_measure = $this->UserMeasure->find('all', 
+	  $measures_sum = $this->MeasuresSum->find('all', 
 	    array(
-	      'conditions' => array('UserMeasure.user_id' => $user_id),
+	      'conditions' => array(
+	      	  'MeasuresSum.parent_type' => 'user',
+	          'MeasuresSum.parent_id' => $user_id,
+	      ),
 	      'contain' => array('Measure'),
 	    )
 	  );
 	  
-	  $this->set('measures', $user_measure);
+	  $this->set('measures', $measures_sum);
 	}
 
 	function add() {

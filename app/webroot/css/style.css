@@ -291,7 +291,7 @@ div#main {
 
 article.activity {
   padding-bottom:  10px;
-  border-bottom: 1px solid #333;
+  border-bottom: 5px solid #bbb;
 }
 
 
@@ -316,7 +316,11 @@ article.activity p.published {
   margin-left: 50%;
 }
 
-
+article.activity p.project,
+article.activity p.published {
+  font-size: .9em;
+  color: #777;
+}
 
 article.activity footer p.author img {
   height: 1.25em;
