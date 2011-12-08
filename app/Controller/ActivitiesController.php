@@ -57,6 +57,7 @@ class ActivitiesController extends AppController {
 	}
 
 	function add() {
+	  $this->set('page_title', 'Add Activity');
 	  $user_id = $this->Auth->user('id');
 	
 	  // Process POST

@@ -10,7 +10,7 @@
     </p>
     <?php if ($activity['Project']['title']) : ?>
       <p class="project">
-        <?php echo $this->Html->link($activity['Project']['title'], array('controller' => 'project', 'action' => 'view', $activity['Project']['id'])) ?>
+        <?php echo $this->Html->link($activity['Project']['title'], array('controller' => 'projects', 'action' => 'view', $activity['Project']['id'])) ?>
       </p> 
     <?php endif; ?>  
     <p class="author"><img src="<?php echo $activity['User']['image'] ?>" alt="<?php echo $activity['User']['screen_name'] ?>'s avatar"><?php echo $activity['User']['screen_name'] ?></p>
