@@ -23,27 +23,12 @@ class Project extends AppModel {
   );
   
   /**
-   * beforeSave function
-   */
-//  function beforeSave() {
-//    return TRUE;
-//  }
-  
-  /**
-   * afterSave function
-   */
-//  function afterSave() {
-//    return TRUE;
-//  } 
-  
-  /**
    * Called when an Activity is added to a Project
    */
   public function addActivity($activity) {
     // Save the project info
-    if( (isset($activity['project_id'])) && ($activity['Activity']['project_id'] != 0) ) {
+    if( (isset($activity['Activity']['project_id'])) && ($activity['Activity']['project_id'] != 0) ) {
       $this->read(null, $activity['Activity']['project_id']);
-      $this->set('activity_sum', $this->data['Project']['activity_sum'] + 1);
       $this->set('modified', $activity['Activity']['created']);
       $this->save($this->data);
     }
@@ -56,7 +41,6 @@ class Project extends AppModel {
       $activity['Activity']['measure_id'],
       $activity['Activity']['quantity'],
       $activity['Activity']['created']);
-    
     
     return TRUE;  
   }

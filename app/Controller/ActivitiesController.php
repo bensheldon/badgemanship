@@ -58,15 +58,9 @@ class ActivitiesController extends AppController {
 
 	function add() {
 	  $user_id = $this->Auth->user('id');
-	  $this->set('projects', $this->Project->find(
-	    'all', array(
-	      'conditions' => array(
-	        'User.id' => $user_id,
-	      )
-	    )
-	  ));	  
 	
-	  if ( ($user_id = $this->Auth->user('id')) && (!empty($this->data)) ) {
+	  // Process POST
+	  if ( (!empty($this->data)) && ($user_id) ) {
 	    $this->Activity->create();
 	    $this->Activity->set(array(
 	        'user_id' => $user_id,
@@ -80,35 +74,22 @@ class ActivitiesController extends AppController {
 	      $this->Activity->set('project_id', $this->data['Activity']['project_id']);
 	    }
 	    
-	    
 	    if ($this->Activity->save()) {
 	    	$this->Session->setFlash('Your activity has been saved.');
 	    	$this->redirect(array('action' => 'index'));
 	    }
-	  
 	  }
-/*	
-		// First check for ajax
-		if ($this->RequestHandler->isAjax()) {
-			Configure::write('debug', 0);
-			$this->autoRender = false;
-			
-			$this->Activity->create();
-			$this->Activity->set('user_id', $this->Auth->user('id'));
-      $this->Activity->save($this->data);
-      // reload the activity back from the database
-      $this->set('comment', $this->Activity->findById($this->Activity->id));	
-      return $this->render(DS.'elements'.DS.'activity');
-		}
-		elseif (!empty($this->data)) {
-			//add the user data
-			$this->Activity->create();
-			$this->Activity->set('user_id', $this->Auth->user('id'));
-			if ($this->Activity->save($this->data)) {
-				$this->Session->setFlash('Your activity has been saved.');
-				$this->redirect(array('action' => 'index'));
-			}
-		} */
+	  
+	  // Set the Projects
+	  $this->set('projects', $this->Project->find(
+	    'all', array(
+	      'conditions' => array(
+	        'User.id' => $user_id,
+	      )
+	    )
+	  ));
+	 
+	   // render 
 	}
 
 	function edit($id = null) {
