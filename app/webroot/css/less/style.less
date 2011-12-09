@@ -11,16 +11,22 @@
    Author:
   ========================================================================== */
 
-#container {
+body {
+  background: #eee;
+  margin-top: 39px; /* to make room for the header topbar */
+}
+
+.container {
   margin: 0 auto;
   max-width: 480px;
+  position: relative;
 }
 
 header {
   position: fixed;
   top: 0;
   left:  0;
-  min-height: 40px;
+  height: 40px;
   width: 100%;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
@@ -28,59 +34,63 @@ header {
   z-index: 1500;
   color: #fff;
   background: #000;
-}
 
-header h1 {
-  margin: 5px 0 0 0;
-  text-align: center;
-  font-size: 1.5em;
-}
+  h1 {
+    margin: 5px 0 0 0;
+    text-align: center;
+    font-size: 1.5em;
+  }
+  
+  a,
+  a:visited,
+  a:hover {
+    color:  #fff;
+    text-decoration: none;
+  }
+  
+  a#add-activity,
+  a#show-nav {
+    position: absolute;
+    display: block;
+    font-size: 2em;
+    text-decoration: none;
+    display: block;
+    background-color: #888;
+    border-radius: 10px;
+    line-height: .65em;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    border: 2px solid #aaa;
+  }
+  
+  a#add-activity {
+    top: 4px;
+    left: 8px;
+  }
+  
+  a#show-nav {
+    top: 4px;
+    right: 8px;
+    font-size: 1.25em;
+    line-height: 1.4em;
+  }
+  
+  nav#primary-nav {
+    display: none; /* hide it on load */
+    border: 2px solid #888;
+    padding: .25em;
+    background: #ddd;
+  } 
 
-header h1 a,
-header h1 a:visited,
-header h1 a:hover {
-  color:  #fff;
-  text-decoration: none;
-}
-
-header a#add-activity,
-header a#show-nav {
-  position: absolute;
-  display: block;
-  font-size: 2em;
-  text-decoration: none;
-  display: block;
-  background-color: #888;
-  border-radius: 10px;
-  line-height: .65em;
-  height: 25px;
-  width: 25px;
-  text-align: center;
-  border: 2px solid #aaa;
-}
-
-header a#add-activity {
-  top: 4px;
-  left: 8px;
-}
-
-header a#show-nav {
-  top: 4px;
-  right: 8px;
-  font-size: 1.25em;
-  line-height: 1.4em;
-}
-
-nav#primary-nav {
-  display: none; /* hide it on load */
-  border: 2px solid #888;
-  padding: .25em;
-  background: #ddd;
 }
 
 div#main {
-  margin-top: 42px;
   padding: .5em .5em;
+  background: #fff;
+  border-radius: 0 0 6px 6px;
+  #hl.rounded-corners(0,0,6px,6px);
+  #hl.drop-shadow(0, 1px, 2px, rgba(0, 0, 0, 0.16));
 }
 
 

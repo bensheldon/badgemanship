@@ -24,14 +24,11 @@
 
 <body>
 
-  <div id="container">
-    <header>
-      <h1><a href="/">Badgemanship</a></h1>
-      <a href="/activities/add" id="add-activity">+</a>
-      <a href="" id="show-nav">#</a>
-    </header>
+  <?php echo $this->element('topbar'); ?>
+
+  <div class="container">
+
     <div id="main" role="main">
-      <?php echo $this->element('nav'); ?>
       <?php echo $this->Session->flash(); ?>
 			<?php echo $content_for_layout; ?>
     </div>
@@ -40,7 +37,7 @@
 
 	    <?php echo $this->element('sql_dump'); ?>
     </footer>
-  </div> <!--! end of #container -->
+  </div> <!--! end of ./container -->
 
 
   <!-- JavaScript at the bottom for fast page loading -->
