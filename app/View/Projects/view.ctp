@@ -1,4 +1,4 @@
-
+<?php debug($project) ?>
 <h2>Project: <?php echo $project['Project']['title'] ?></h2>
 
 <?php foreach ($project['Activity'] as $activity): ?>

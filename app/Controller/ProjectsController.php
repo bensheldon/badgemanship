@@ -22,10 +22,13 @@ class ProjectsController extends AppController {
 	
 	}
 
-	function view($id) {
-		$this->Project->id = $id;
-		$project = $this->Project->read();
-		$this->set('project', $project);
+	function view($id) {		
+		$this->set('project', $this->Project->find(
+		  'first', array(
+		    'conditions' => array('Project.id' => $id),
+		    'contain' => array('User', 'Activity'), 
+		  )
+		));
 	}
 	
 	function user($username) {
@@ -41,7 +44,9 @@ class ProjectsController extends AppController {
 	}
 
 	function add() {
-	  if ( ($user_id = $this->Auth->user('id')) && (!empty($this->data)) ) {
+	  $user_id = $this->Auth->user('id');
+	  
+	  if ( ($user_id ) && (!empty($this->data)) ) {
 	    $this->Project->create();
 	    $this->Project->set(array(
 	        'user_id' => $user_id,
@@ -53,9 +58,7 @@ class ProjectsController extends AppController {
 	    	$this->Session->setFlash('Your project has been saved.');
 	    	$this->redirect(array('action' => 'index'));
 	    }
-	  
 	  }
-	  
 	}
 
 	function edit($id = null) {

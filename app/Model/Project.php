@@ -15,6 +15,7 @@ class Project extends AppModel {
     'Activity' => array(            
       'className'    => 'Activity',            
       'foreignKey'   => 'project_id',
+      'order'        => array("Activity.created" => "DESC"),
     ),
   );
   
