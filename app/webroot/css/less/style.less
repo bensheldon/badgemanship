@@ -48,8 +48,7 @@ header {
     text-decoration: none;
   }
   
-  a#add-activity,
-  a#navigation {
+  a#add-activity {
     position: absolute;
     display: block;
     font-size: 2em;
@@ -69,21 +68,55 @@ header {
     left: 8px;
   }
   
-  a#navigation {
+  ul#primary-nav {
+    position: absolute;
+    display: block;
     top: 4px;
-    right: 8px;
-    font-size: 1.25em;
+    right: 0;
     line-height: 1.4em;
-  }
   
-  nav#primary-nav {
-    display: none; /* hide it on load */
-    border: 2px solid #888;
-    padding: .25em;
-    background: #ddd;
-  } 
-
+    li {
+      list-style: none;
+    }
+  }
 }
+
+// The dropdown menu (ul)
+.dropdown-menu {
+  background-color: #fff;
+  float: left;
+  display: none; // None by default, but block on "open" of the menu
+  position: absolute;
+  top: 5px;
+  right: 0;
+  z-index: 900;
+  min-width: 160px;
+  max-width: 220px;
+  _width: 160px;
+  margin-left: 0; // override default ul styles
+  margin-right: 0;
+  padding: 6px 0;
+  zoom: 1; // do we need this?
+  border-color: #999;
+  border-color: rgba(0,0,0,.2);
+  border-style: solid;
+  border-width: 0 1px 1px;
+  background-color: #333;
+  #hl.rounded-corners(0,0,6px,6px);
+
+  // Unfloat any li's to make them stack
+  li {
+    float: none;
+    display: block;
+    background-color: none;
+    padding: 5px 15px;
+  }
+}
+
+.open .dropdown-menu {
+  display: block;
+}
+
 
 div#main {
   background: #fff;

@@ -8,7 +8,6 @@
       echo '<li>' . $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')) . '</li>'; 
     else :
       echo '<li>' . $this->Html->link('Login/Register', array('controller' => 'users', 'action' => 'login')) . '</li>';
-    
     endif;  
   ?>
   </ul>
