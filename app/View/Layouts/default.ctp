@@ -23,9 +23,7 @@
 </head>
 
 <body>
-    <?php echo $this->element('topbar'); ?>
 
-<<<<<<< .merge_file_Wftk9y
   <?php echo $this->element('topbar'); ?>
 
   <div class="container">
@@ -34,18 +32,6 @@
       <?php echo $this->Session->flash(); ?>
 			<?php echo $content_for_layout; ?>
     </div>
-=======
-   <div class="container">
-
-      <div class="content">
-        <div class="page-header">
-          <h1>Page name <small>Supporting text or tagline</small></h1>
-        </div>
-      <div id="main" role="main">
-        <?php echo $this->Session->flash(); ?>
-  			<?php echo $content_for_layout; ?>
-      </div>
->>>>>>> .merge_file_exvM5B
 
     <footer>
 
@@ -62,7 +48,6 @@
 
   <?php
     // echo $this->Html->css('cake.generic');
-    echo $this->Html->script('libs/bootstrap-dropdown.js');
     echo $this->Html->script('scripts');
   ?>
 

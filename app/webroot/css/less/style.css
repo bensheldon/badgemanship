@@ -1,0 +1,1161 @@
+/* ==|== HelpLess - LESS Helpers Library (http://m6tt.github.com/HelpLess) = */
+/* HelpLess
+*
+*  @What is it:
+*  HelpLess is a Helper Library for the brilliant LESS dynamic stylesheet language.
+*  Read more about LESS: http://lesscss.org/
+*  
+*  I have tried to make HelpLess as all-encompasing as possible with support for dynamic
+*  grids and page starter themes as well as all the css3 features I could think of.
+*  Unlike other libraries, HelpLess has an invisible footprint until you call a mixin 
+*  so if you import HelpLess but don't use it, it will not increase your compiled file size
+*  
+*  @thanks: 
+*  Eric Meyer for his html reset - http://meyerweb.com/eric/tools/css/reset/
+*  Necolas for his normalize - https://github.com/necolas/normalize.css
+*
+*  @How to use:
+*  Import helpless.x.x.x.less into your main style.less file. 
+*
+*  @Author: 
+*  m6tt: m6tt.com
+*
+*  @Reference:
+*  ------------------------------------------------------------------------------
+*    BASICS                     =>    syntax
+*  ------------------------------------------------------------------------------
+*    - .reset                   =>    #hl.reset() - call outside of element
+*    - .normalize               =>    #hl.normalize - call outside of element
+*    - .clearfix                =>    #hl.clearfix()
+*    - .centered                =>    #hl.centered(width)
+*    - .border                  =>    #hl.border(color)
+*    - .opacity                 =>    #hl.opacity(value)
+*    - .round-all-corners       =>    #hl.round-all-corners(radius)
+*    - .rounded-corners         =>    #hl.rounded-corners(topLeft, topRight, bottomRight, bottomLeft)
+*    - .transition              =>    #hl.transition(property, duration, ease, delay)
+*    - .drop-shadow             =>    #hl.drop-shadow(x, y, blur, color)
+*    - .inner-shadow            =>    #hl.inner-shadow(x, y, blur, color)
+*    - .text-shadow             =>    #hl.text-shadow(x, y, blur, color)
+*    - .background-gradient     =>    #hl.background-gradient(colorFrom, colorTo, fallbackColor, fallbackImageUrl)
+*    - .scale                   =>    #hl.scale(amount)
+*    - .scaleX                  =>    #hl.scaleX(amount)
+*    - .scaleY                  =>    #hl.scaleY(amount)
+*    - .rotate                  =>    #hl.rotate(degrees)
+*    - .rotateX                 =>    #hl.rotateX(degrees)
+*    - .rotateY                 =>    #hl.rotateY(degrees)
+*    - .skew                    =>    #hl.skew(angleX, angleY)
+*    - .skewX                   =>    #hl.skewX(angleX)
+*    - .skewY                   =>    #hl.skewY(angleY)
+*    - .translate               =>    #hl.translate(x, y)
+*    - .translateX              =>    #hl.translateX(x)
+*    - .translateY              =>    #hl.translateY(y)
+*    - .matrix                  =>    #hl.matrix(n, n, n, n, n, n)
+*
+*  ------------------------------------------------------------------------------
+*    GRID                       =>    syntax
+*  ------------------------------------------------------------------------------
+*    - .grid                    =>    namespace, do not call directly, use .make or one of the predefined grid makers
+*     - .make                   =>    #hl.grid.make(width, colNumber, gutterWidth)
+*     - .1200                   =>    #hl.grid.1200();
+*     - .1120                   =>    #hl.grid.1120();
+*     - .1040                   =>    #hl.grid.1040();
+*     - .960                    =>    #hl.grid.960();
+*     - .880                    =>    #hl.grid.880();
+*     - .800                    =>    #hl.grid.800();
+*     - .720                    =>    #hl.grid.720();
+*     - .640                    =>    #hl.grid.640();
+*     - .560                    =>    #hl.grid.560();
+*     - .480                    =>    #hl.grid.480();
+*     - .400                    =>    #hl.grid.400();
+*     - .320                    =>    #hl.grid.320();
+*     - .240                    =>    #hl.grid.240();
+*     - .row                    =>    #hl.grid.row();
+*     - .col                    =>    #hl.grid.col(colSpan);
+*
+*  ---------------------------------------
+*    TYPOGRAPHY
+*  ---------------------------------------
+*    - .typo                    =>    namespace, do not call directly
+*     - .serif                  =>    #hl.typo.serif(webfont-name-optional);
+*     - .sans                   =>    #hl.typo.sans(webfont-name-optional);
+*     - .columns                =>    #hl.typo.columns(count, gap)
+* 
+*  ---------------------------------------
+*    IMAGES
+*  ---------------------------------------
+*    - .img                     =>    namespace, do not call directly
+*     - .responsive             =>    #hl.img.responsive();
+*     - .framed                 =>    #hl.img.framed();
+
+*  ---------------------------------------
+*    USER INTERFACE
+*  ---------------------------------------
+*    - .ui                      =>    namespace, do not call directly
+*     - .themes                 =>    namespace, do not call directly
+*      - .light                 =>    #hl.ui.themes.light(); - call within <body> element
+*      - .dark                  =>    #hl.ui.themes.dark(); - call within <body> element
+*     - .list                   =>    namespace, do not call directly
+*      - .subtle                =>    #hl.list.subtle(); - call within <ul> element
+*      - .horizontal            =>    #hl.list.horizontal(); - call within <ul> element
+*
+*/
+#hl {
+  /************************************
+  * Meyer Reset
+  * http://meyerweb.com/eric/tools/css/reset/
+  ************************************/
+
+  /************************************
+  * Normalize by necolas
+  * https://github.com/necolas/normalize.css
+  ************************************/
+
+  /************************************
+  * Clearfix
+  *
+  * what?: Contains floats, for more info see h5bp.com/q.
+  *        Removes the need to add .clearfix as a class
+  *        to your elements.
+  *
+  ************************************/
+
+  /************************************
+  * Centered
+  *
+  * @what?: Center your object with an
+  *         automatic margin
+  *
+  * @params: width,      default = 960px
+  *
+  ************************************/
+
+  /************************************
+  * Border
+  *
+  * @what?: Add a 1px solid border
+  *        super quick.
+  *
+  * @params: colour,      default = #000
+  *
+  ************************************/
+
+  /************************************
+  * Opacity
+  *
+  * @what?: Add opacity to an HTML element that works
+  *         in all browsers including ie6+
+  *
+  * @params: value,      default = .5
+  *
+  ************************************/
+
+  /************************************
+  * Round all corners
+  *
+  * @what?: Rounds every corner equally
+  *
+  * @params: radius,      default = 5px
+  *
+  ************************************/
+
+  /************************************
+  * Rounded corners
+  *
+  * @what?: Round each corner individually
+  *
+  * @params: topLeft,     default = 5px
+  *          topRight,    default = 5px
+  *          bottomRight, default = 5px
+  *          bottomLeft,  default = 5px
+  *
+  ************************************/
+
+  /************************************
+  * Transition
+  *
+  * @what?: Defines a CSS3 transition
+  *
+  * @params: property,    default = all
+  *          duration,    default = .5s
+  *          ease,        default = linear
+  *          delay,       default = .0s
+  *
+  ************************************/
+
+  /************************************
+  * Drop shadow
+  *
+  * @what?: Adds an outer shadow to the
+  *         html element. To add a shadow
+  *         to text use #hl.text-shadow(...)
+  *
+  * @params: x,           default = 0px
+  *          y,           default = 1px
+  *          blur,        default = 1px
+  *          colour,      default = rgba(0, 0, 0, .6)
+  *
+  ************************************/
+
+  /************************************
+  * Inner shadow
+  *
+  * @what: Adds an inner shadow to the
+  *        html element.
+  *
+  * @params: x,           default = 0px
+  *          y,           default = 1px
+  *          blur,        default = 1px
+  *          colour,      default = rgba(0, 0, 0, .6)
+  *
+  ************************************/
+
+  /************************************
+  * Text shadow
+  *
+  * @what?: Adds an outer shadow to text
+  *
+  * @params: x,           default = 1px
+  *          y,           default = 1px
+  *          blur,        default = 1px
+  *          colour,      default = rgba(0, 0, 0, .6)
+  *
+  ************************************/
+
+  /************************************
+  * Background Gradient
+  *
+  * @what?: Adds a background gradient to
+  *         an HTML element
+  *
+  * @params: colourFrom,       default = #bbb
+  *          colourTo,         default = #f1f1f1
+  *          fallbackColour,   default = #f1f1f1
+  *          fallbackImageUrl, default = ''
+  *
+  ************************************/
+
+  /************************************
+  * Scale
+  *
+  * @what?: Defines a 2D scale transformation
+  *
+  * @params: amount,      default = 1
+  *
+  ************************************/
+
+  /************************************
+  * ScaleX
+  *
+  * @what?: Defines a scale transformation
+  *         by giving a value for the X-axis
+  *
+  * @params: x,           default = 1
+  *
+  ************************************/
+
+  /************************************
+  * ScaleY
+  *
+  * @what?: Defines a scale transformation
+  *         by giving a value for the Y-axis
+  *
+  * @params: y,           default = 1
+  *
+  ************************************/
+
+  /************************************
+  * Rotate
+  *
+  * @what?: Defines a 2D rotation, the angle
+  *         is specified in the parameter
+  *
+  * @params: degrees,     default = 90deg
+  *
+  ************************************/
+
+  /************************************
+  * RotateX
+  *
+  * @what?: Defines a 3D rotation along the X-axis
+  *
+  * @params: degrees,     default = 90deg
+  *
+  ************************************/
+
+  /************************************
+  * RotateY
+  *
+  * @what?: Defines a 3D rotation along the Y-axis
+  *
+  * @params: degrees,     default = 90deg
+  *
+  ************************************/
+
+  /************************************
+  * Skew
+  *
+  * @what?: Defines a 2D skew transformation
+  *         along the X- and the Y-axis
+  *
+  * @params: angleX,      default = 10deg
+  *          angleY,      default = 10deg
+  *
+  ************************************/
+
+  /************************************
+  * SkewX
+  *
+  * @what?: Defines a 2D skew transformation
+  *         along the X-axis
+  *
+  * @params: angleX,      default = 10deg
+  *
+  ************************************/
+
+  /************************************
+  * SkewY
+  *
+  * @what?: Defines a 2D skew transformation
+  *         along the Y-axis
+  *
+  * @params: angleY,      default = 10deg
+  *
+  ************************************/
+
+  /************************************
+  * Translate
+  *
+  * @what?: Defines a 2D translation
+  *
+  * @params: x,           default = 10px
+  *          y,           default = 10px
+  *
+  ************************************/
+
+  /************************************
+  * TranslateX
+  *
+  * @what?: Defines a translation, using
+  *         only the value for the X-axis
+  *
+  * @params: x,           default = 10px
+  *
+  ************************************/
+
+  /************************************
+  * TranslateY
+  *
+  * @what?: Defines a translation, using
+  *         only the value for the Y-axis
+  *
+  * @params: y,           default = 10px
+  *
+  ************************************/
+
+  /************************************
+  * Matrix
+  *
+  * @what?: Defines a 2D transformation,
+  *         using a matrix of six values
+  *
+  * @params: n1,          default = 0
+  *          n2,          default = 0
+  *          n3,          default = 0
+  *          n4,          default = 0
+  *          n5,          default = 0
+  *          n6,          default = 0
+  *
+  ************************************/
+
+  /************************************
+  * Grid
+  ************************************/
+
+  /***********************************
+  * TYPOGRAPHY
+  ***********************************/
+
+  /***********************************
+  * IMAGE
+  ***********************************/
+
+  /***********************************
+  * UI 
+  ***********************************/
+
+}
+#hl .grid {
+  /************************************
+    * Make
+    *
+    * @what?: Defines the base variables needed
+    *         for the HelpLess grid system.
+    *
+    * @params: @width,      default = 960
+    *          @colnum,     default = 16
+    *          @colgutter,  default = 10
+    *
+    ************************************/
+
+  /************************************
+    * 1200
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 1120
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 1040
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 960
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 880
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 800
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 720
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 640
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 560
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 480
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 400
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 320
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * 240
+    *
+    * @what?: Predefined grid maker
+    *
+    ************************************/
+
+  /************************************
+    * Row
+    *
+    * @what?: Defines an element as a row.
+    *         clears all clearfixes all columns
+    *         directly inside.
+    *
+    ************************************/
+
+  /************************************
+    * Col
+    *
+    * @what?: Defines an element as a column.
+    *         Sets the width depending on the
+    *         supplied arguments and the width
+    *         set in .grid()
+    *
+    * @params: @colSpan,  default = 1
+    *
+    ************************************/
+
+}
+#hl .typo {
+  /************************************
+    * Serif
+    *
+    * @what?: Quickly set your font family
+    *         as a serif set
+    *
+    * @params: @webfont,  default = none
+    *
+    ************************************/
+
+  /************************************
+    * Serif
+    *
+    * @what?: Quickly set your font family
+    *
+    * @params: @webfont,  default = none
+    *
+    ************************************/
+
+  /************************************
+    * Columns
+    *
+    * @what?: Sets CSS3 columns within
+    *         block of html text
+    *
+    * @params: count,       default = 1
+    *          gap,         default = 10px
+    *
+    ************************************/
+
+}
+#hl .img {
+  /************************************
+    * Responsive
+    *
+    * @what?: Set image max-width: 100%
+    *
+    ************************************/
+
+  /************************************
+    * Framed
+    *
+    * @what?: Add a quick 10px frame to your image
+    *
+    ************************************/
+
+}
+#hl .ui {
+  /***********************************
+     * PREDEFINED THEMES
+     ***********************************/
+
+  /***********************************
+     * LISTS
+     ***********************************/
+
+  /***********************************
+     * FORMS
+     ***********************************/
+
+}
+#hl .ui .themes {
+  /***********************************
+       * Theme: Light
+       *
+       * @what?: Quickly style the base elements
+       *         of your page
+       *
+       ***********************************/
+
+  /***********************************
+       * Theme: Dark
+       *
+       * @what?: Quickly style the base elements
+       *         of your page
+       *
+       ***********************************/
+
+}
+#hl .ui .list {
+  /***********************************
+       * Subtle
+       *
+       * @what?: Quickly removes the styling 
+       *         from a list
+       *
+       ***********************************/
+
+  /***********************************
+       * Horizontal
+       *
+       * @what?: Creates a horizontal list, 
+       *         useful for styling your site nav
+       *
+       ***********************************/
+
+}
+/* ==|== Import HTML5 ✰ Boilerplate LESS library =========================== */
+/*
+ * HTML5 ✰ Boilerplate - LESS
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ *
+ * Detailed information about this CSS: h5bp.com/css
+ *
+ * Converted to LESS by @m6tt: m6tt.com/less-boilerplate
+ */
+#blr {
+  /* ==|== normalize ======================================== */
+
+  /* ==|== non-semantic helper classes ======================================== */
+
+  /* ==|== print styles ======================================================= */
+
+}
+/* Normalize */
+/* =============================================================================
+       HTML5 display definitions
+       ========================================================================== */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+[hidden] {
+  display: none;
+}
+/* =============================================================================
+       Base
+       ========================================================================== */
+/*
+     * 1. Correct text resizing oddly in IE6/7 when body font-size is set using em units
+     * 2. Force vertical scrollbar in non-IE
+     * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
+     */
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.231;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font-family: sans-serif;
+  color: #222;
+}
+/*
+     * Remove text-shadow in selection highlight: h5bp.com/i
+     * These selection declarations have to be separate
+     * Also: hot pink! (or customize the background color to match your design)
+     */
+::-moz-selection {
+  background: #0abbcd;
+  color: #555555;
+  text-shadow: none;
+}
+::selection {
+  background: #0abbcd;
+  color: #555555;
+  text-shadow: none;
+}
+/* =============================================================================
+       Links
+       ========================================================================== */
+a {
+  color: #0000ee;
+}
+a:visited {
+  color: #551a8b;
+}
+a:hover {
+  color: #0000ee;
+}
+a:focus {
+  outline: thin dotted;
+}
+/* Improve readability when focused and hovered in all browsers: h5bp.com/h */
+a:hover, a:active {
+  outline: 0;
+}
+/* =============================================================================
+       Typography
+       ========================================================================== */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b, strong {
+  font-weight: bold;
+}
+blockquote {
+  margin: 1em 40px;
+}
+dfn {
+  font-style: italic;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+ins {
+  background: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+/* Redeclare monospace font family: h5bp.com/j */
+pre,
+code,
+kbd,
+samp {
+  font-family: monospace, serif;
+  _font-family: 'courier new', monospace;
+  font-size: 1em;
+}
+/* Improve readability of pre-formatted text in all browsers */
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+q {
+  quotes: none;
+}
+q:before, q:after {
+  content: "";
+  content: none;
+}
+small {
+  font-size: 85%;
+}
+/* Position subscript and superscript content without affecting line-height: h5bp.com/k */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+/* =============================================================================
+       Lists
+       ========================================================================== */
+ul, ol {
+  margin: 1em 0;
+  padding: 0 0 0 40px;
+}
+dd {
+  margin: 0 0 0 40px;
+}
+nav ul, nav ol {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+/* =============================================================================
+       Embedded content
+       ========================================================================== */
+/*
+     * 1. Improve image quality when scaled in IE7: h5bp.com/d
+     * 2. Remove the gap between images and borders on image containers: h5bp.com/e
+     */
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+/*
+     * Correct overflow not hidden in IE9
+     */
+svg:not(:root) {
+  overflow: hidden;
+}
+/* =============================================================================
+       Figures
+       ========================================================================== */
+figure {
+  margin: 0;
+}
+/* =============================================================================
+       Forms
+       ========================================================================== */
+form {
+  margin: 0;
+}
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+/* Indicate that 'label' will shift focus to the associated form element */
+label {
+  cursor: pointer;
+}
+/*
+     * 1. Correct color not inheriting in IE6/7/8/9
+     * 2. Correct alignment displayed oddly in IE6/7
+     */
+legend {
+  border: 0;
+  *margin-left: -7px;
+  padding: 0;
+}
+/*
+     * 1. Correct font-size not inheriting in all browsers
+     * 2. Remove margins in FF3/4 S5 Chrome
+     * 3. Define consistent vertical alignment display in all browsers
+     */
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+/*
+     * 1. Define line-height as normal to match FF3/4 (set using !important in the UA stylesheet)
+     * 2. Correct inner spacing displayed oddly in IE6/7
+     */
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+/*
+     * Reintroduce inner spacing in 'table' to avoid overlap and whitespace issues in IE6/7
+     */
+table button, table input {
+  *overflow: auto;
+}
+/*
+     * 1. Display hand cursor for clickable form elements
+     * 2. Allow styling of clickable form elements in iOS
+     */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+/*
+     * Consistent box sizing and appearance
+     */
+input[type="checkbox"], input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/*
+     * Remove inner padding and border in FF3/4: h5bp.com/l
+     */
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/*
+     * 1. Remove default vertical scrollbar in IE6/7/8/9
+     * 2. Allow only vertical resizing
+     */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  resize: vertical;
+}
+/* Colors for form validity */
+input:invalid, textarea:invalid {
+  background-color: #f0dddd;
+}
+/* =============================================================================
+       Tables
+       ========================================================================== */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td {
+  vertical-align: top;
+}
+/* ==|== primary styles =====================================================
+   Author:
+  ========================================================================== */
+#container {
+  margin: 0 auto;
+  max-width: 480px;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 40px;
+  width: 100%;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  z-index: 1500;
+  color: #fff;
+  background: #000;
+}
+header h1 {
+  margin: 5px 0 0 0;
+  text-align: center;
+  font-size: 1.5em;
+}
+header h1 a, header h1 a:visited, header h1 a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+header a#add-activity, header a#show-nav {
+  position: absolute;
+  display: block;
+  font-size: 2em;
+  text-decoration: none;
+  display: block;
+  background-color: #888;
+  border-radius: 10px;
+  line-height: .65em;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  border: 2px solid #aaa;
+}
+header a#add-activity {
+  top: 4px;
+  left: 8px;
+}
+header a#show-nav {
+  top: 4px;
+  right: 8px;
+  font-size: 1.25em;
+  line-height: 1.4em;
+}
+nav#primary-nav {
+  display: none;
+  /* hide it on load */
+
+  border: 2px solid #888;
+  padding: .25em;
+  background: #ddd;
+}
+div#main {
+  margin-top: 42px;
+  padding: .5em .5em;
+}
+article.activity {
+  padding-bottom: 10px;
+  border-bottom: 5px solid #bbb;
+}
+article.activity footer > * {
+  width: 50%;
+  margin: 0;
+}
+article.activity p.measure, article.activity p.project {
+  float: left;
+  clear: left;
+}
+article.activity span.label, article.activity span.quantity {
+  font-weight: bold;
+}
+article.activity p.author, article.activity p.published {
+  margin-left: 50%;
+}
+article.activity p.project, article.activity p.published {
+  font-size: .9em;
+  color: #777;
+}
+article.activity footer p.author img {
+  height: 1.25em;
+  vertical-align: text-top;
+  margin-right: .5em;
+}
+/* ==|== media queries ====================================================== */
+/* Screen width <= 320px */
+@media only screen and (max-width: 320px) {
+  
+}
+/* Screen width > 320px */
+@media only screen and (min-width: 321px) and (max-width: 480px) {
+  
+}
+/* Screen width > 480px */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  
+}
+/* Screen width > 768px */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  
+}
+/* Screen width > 1024px */
+@media only screen and (min-width: 1023px) and (max-width: 1280px) {
+  
+}
+/* Screen width > 1280px */
+@media only screen and (min-width: 1281px) {
+  
+}
+/* ==|== endos ==============================================================
+   Please define your styles before this section.
+   ========================================================================== */
+/* For image replacement */
+.ir {
+  display: block;
+  border: 0;
+  text-indent: -999em;
+  overflow: hidden;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  text-align: left;
+  direction: ltr;
+}
+.ir br {
+  display: none;
+}
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible {
+  visibility: hidden;
+}
+/* Contain floats: h5bp.com/q */
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+  /* Black prints faster: h5bp.com/s */
+  a, a:visited {
+    text-decoration: underline;
+  }
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+    content: "";
+  }
+  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  /* h5bp.com/t */
+  tr, img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page  {
+    margin: 0.5cm;
+  }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2, h3 {
+    page-break-after: avoid;
+  }
+}
