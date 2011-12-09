@@ -1,0 +1,162 @@
+/* ==|== HelpLess - LESS Helpers Library (http://m6tt.github.com/HelpLess) = */
+@import 'libs/helpless.0.0.3.less';
+
+/* ==|== Import HTML5 ✰ Boilerplate LESS library =========================== */
+@import 'libs/boilerplate.less';
+
+/* Normalize */
+#blr.normalize(#0abbcd, #555);
+
+/* ==|== primary styles =====================================================
+   Author:
+  ========================================================================== */
+
+#container {
+  margin: 0 auto;
+  max-width: 480px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left:  0;
+  min-height: 40px;
+  width: 100%;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  z-index: 1500;
+  color: #fff;
+  background: #000;
+}
+
+header h1 {
+  margin: 5px 0 0 0;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+header h1 a,
+header h1 a:visited,
+header h1 a:hover {
+  color:  #fff;
+  text-decoration: none;
+}
+
+header a#add-activity,
+header a#show-nav {
+  position: absolute;
+  display: block;
+  font-size: 2em;
+  text-decoration: none;
+  display: block;
+  background-color: #888;
+  border-radius: 10px;
+  line-height: .65em;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  border: 2px solid #aaa;
+}
+
+header a#add-activity {
+  top: 4px;
+  left: 8px;
+}
+
+header a#show-nav {
+  top: 4px;
+  right: 8px;
+  font-size: 1.25em;
+  line-height: 1.4em;
+}
+
+nav#primary-nav {
+  display: none; /* hide it on load */
+  border: 2px solid #888;
+  padding: .25em;
+  background: #ddd;
+}
+
+div#main {
+  margin-top: 42px;
+  padding: .5em .5em;
+}
+
+
+article.activity {
+  padding-bottom:  10px;
+  border-bottom: 5px solid #bbb;
+}
+
+
+article.activity footer > * {
+  width: 50%;
+  margin: 0;
+}
+
+article.activity p.measure,
+article.activity p.project {
+  float: left;
+  clear: left;
+}
+
+article.activity span.label,
+article.activity span.quantity {
+  font-weight: bold;
+}
+
+article.activity p.author,
+article.activity p.published {
+  margin-left: 50%;
+}
+
+article.activity p.project,
+article.activity p.published {
+  font-size: .9em;
+  color: #777;
+}
+
+article.activity footer p.author img {
+  height: 1.25em;
+  vertical-align: text-top;
+  margin-right: .5em;
+}
+
+
+/* ==|== media queries ====================================================== */
+/* Screen width <= 320px */
+@media only screen and (max-width: 320px) {
+
+}
+
+/* Screen width > 320px */
+@media only screen and (min-width: 321px) and (max-width: 480px) {
+
+}
+
+/* Screen width > 480px */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+}
+
+/* Screen width > 768px */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+}
+
+/* Screen width > 1024px */
+@media only screen and (min-width: 1023px) and (max-width: 1280px) {
+
+}
+
+/* Screen width > 1280px */
+@media only screen and (min-width: 1281px) {
+
+}
+
+/* ==|== endos ==============================================================
+   Please define your styles before this section.
+   ========================================================================== */
+#blr.ns-helpers();
+@media print { #blr.media-print(); }
