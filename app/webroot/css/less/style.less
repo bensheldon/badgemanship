@@ -145,7 +145,51 @@ div#page-header {
   background: #f5f5f5;
   padding: 5px 6% 0;
   border-bottom: 1px solid #ddd;
+  #hl.clearfix;
 }
+
+div.secondary-nav {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+  zoom: 1;
+  float:right;
+  position:relative;
+  left:-50%;
+  font-weight: bold;
+  
+  ul {
+  
+    list-style:none; 
+    position:relative;
+    left:50%;
+  
+    li {
+      float: left;
+      margin: 0 10px;
+    }
+  
+    li a, 
+    li span {
+      padding: .5em;
+      #hl.rounded-corners(10px, 10px, 10px, 10px);
+      text-decoration: none;
+    }
+    
+    li a:hover {
+      color: #fff;
+      background-color: #0069D6;
+    }
+  
+    li.active span {
+      color: white;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+      background-color: #0069D6;
+    }
+  }
+}
+
+
 
 div#page-content {
   padding: 10px 6% 10px;

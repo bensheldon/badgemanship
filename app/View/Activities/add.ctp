@@ -1,7 +1,5 @@
 <div id="page-header">
-
-  <h1>Add Activity</h1>
-
+    <?php echo $this->element('nav-add', array('active' => 'activity')); ?>
 </div>
 
 <div id="page-content">
