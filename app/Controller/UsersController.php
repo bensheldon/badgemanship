@@ -59,7 +59,7 @@ class UsersController extends AppController {
         $user = json_decode($user, TRUE); // decode JSON into array
         $user_data = array(
           'twitter_id' => $user['id'],
-          'screen_name' => $user['screen_name'],
+          'username' => $user['screen_name'],
           'password' => $user['screen_name'], // this is the same as name, but we need to verify it.
           'access_token' => $accessTokenKey,
           'access_token_secret' =>  $accessTokenSecret,
@@ -79,7 +79,7 @@ class UsersController extends AppController {
         $this->Session->destroy();
         // Log the user in
         if ($this->Auth->login($user_data)) {
-          $this->Session->setFlash('You, <strong>' . $user['User']['screen_name'] ."</strong>, have been successfully logged in via Twitter.");
+          $this->Session->setFlash('You, <strong>' . $user['User']['username'] ."</strong>, have been successfully logged in via Twitter.");
           $this->redirect(array('controller' => 'Activities', 'action' => 'index'));
         }
         else {
