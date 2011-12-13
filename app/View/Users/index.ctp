@@ -14,12 +14,12 @@
 
 	<?php foreach ($users as $user): ?>
 	<tr>
-		<td><img src="<?php echo $user['User']['image'] ?>" alt="<?php echo $user['User']['screen_name'] ?>"</td>
+		<td><img src="<?php echo $user['User']['image'] ?>" alt="<?php echo $user['User']['username'] ?>"</td>
 		<td><?php echo $user['User']['id']; ?></td>
 		<td><?php echo $user['User']['twitter_id']; ?></td>
 		<td>
-			<?php echo $this->Html->link($user['User']['screen_name'], 
-array('controller' => 'users', 'action' => 'view', $user['User']['id'], $user['User']['screen_name'])); ?>
+			<?php echo $this->Html->link($user['User']['username'], 
+array('controller' => 'users', 'action' => 'view', $user['User']['id'], $user['User']['username'])); ?>
 		</td>
 		<td><?php echo $user['User']['created']; ?></td>
 	</tr>

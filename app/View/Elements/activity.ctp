@@ -13,7 +13,7 @@
         <?php echo $this->Html->link($activity['Project']['title'], array('controller' => 'projects', 'action' => 'view', $activity['Project']['id'])) ?>
       </p> 
     <?php endif; ?>  
-    <p class="author"><img src="<?php echo $activity['User']['image'] ?>" alt="<?php echo $activity['User']['screen_name'] ?>'s avatar"><?php echo $activity['User']['screen_name'] ?></p>
+    <p class="author"><img src="<?php echo $activity['User']['image'] ?>" alt="<?php echo $activity['User']['username'] ?>'s avatar"><?php echo $activity['User']['username'] ?></p>
     <p class="published">
       <?php echo $this->Html->link(
               $this->Time->timeAgoInWords($activity['Activity']['created'], array('format' => 'd-m-Y', 'end' => '+1 month')),
