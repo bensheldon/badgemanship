@@ -1,5 +1,5 @@
 <div id="page-header">
-    <?php echo $this->element('nav-add', array('active' => 'activity')); ?>
+    <?php echo $this->element('nav-add', array('active' => 'badge')); ?>
 </div>
 
 <div id="page-content">

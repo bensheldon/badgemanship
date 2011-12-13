@@ -18,14 +18,4 @@ class AwardedBadge extends AppModel {
     ),
   );
   
-  function beforeSave() {
-    // Associate Badge[measure_id] and unset Badge[measure] 
-    if (empty($this->data['Badge']['measure_id'])) {
-      $measure = $this->Measure->saveMeasure($this->data['Badge']['measure'], $this->data['Badge']['quantity_goal']);
-      $this->data['Badge']['measure_id'] = $measure['Measure']['id'];
-      unset($this->data['Badge']['measure']); // the Measure's text isn't saved
-    }
-  
-    return TRUE;
-  }
 }
