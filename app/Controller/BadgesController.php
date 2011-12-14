@@ -11,16 +11,70 @@ class BadgesController extends AppController {
 	  // if logged in show the user's
 	  // otherwise show all
 	  if ($user_id = $this->Auth->user('id')) {
-	    $this->set('badges', $this->Badge->find(
-	      'all',
-	      array('conditions' => array('Badge.user_id' => $user_id))
+	    
+	    // bind the User's Awarded badge to the model, so it's joined on Find()
+	    $this->Badge->bindModel(
+	      array('hasOne' => array(
+	        'AwardedBadge' => array(
+	          'className' => 'AwardedBadge',
+	          'foreignKey' => 'badge_id',
+	          'conditions' => array('AwardedBadge.user_id' => $user_id), 
+	        ),
+	      )
 	    ));
+	    
+	    //Bind measure's sum (User, then Project) so we know progress
+	    $this->Badge->bindModel(
+	      array('hasOne' => array(
+	        'MeasuresSumUser' => array(
+	          'className' => 'MeasuresSum',
+	          'foreignKey' => FALSE, 
+	          'conditions' => array(
+	            'MeasuresSumUser.parent_type' => 'user',
+	            'MeasuresSumUser.parent_id' => $user_id,
+	            'MeasuresSumUser.measure_id = Badge.measure_id', 
+	        ),
+	      )
+	    )));
+	    $this->Badge->bindModel(
+	      array('hasOne' => array(
+	        'MeasuresSumProject' => array(
+	          'className' => 'MeasuresSum',
+	          'foreignKey' => FALSE, 
+	          'conditions' => array(
+	            'MeasuresSumProject.parent_type' => 'project',
+	            'MeasuresSumProject.parent_id = Badge.project_id',
+	            'MeasuresSumProject.measure_id = Badge.measure_id', 
+	        ),
+	      )
+	    ))); 
+	     
+	  
+	    $this->set('badges', $this->Badge->find(
+	      'all', array(
+	        'conditions' => array(
+            'OR' => array(
+              'Badge.user_id' => $user_id,
+              'AwardedBadge.user_id' => $user_id,
+            ),
+          ),
+          'order' => array(
+            'AwardedBadge.created DESC'
+          )
+	    )));
 	  }
 	  else {
 	  	$this->set('badges', $this->Badge->find('all'));
 	  }
 	}
 	
+	
+	function progress() {
+	  if ($user_id = $this->Auth->user('id')) {
+	    $this->set('badges', $this->Badge->findUserProgress($user_id));
+	    $this->render('index');
+	  }
+	}
 	
 	function add() {
 	  $this->set('page_title', 'Add Badge');

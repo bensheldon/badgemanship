@@ -16,6 +16,10 @@ class AwardedBadge extends AppModel {
       'foreignKey'   => 'user_id',
       'counterCache' => true,
     ),
+    'Project' => array(            
+      'className'    => 'Project',            
+      'foreignKey'   => 'project_id',
+    ),
   );
   
 }

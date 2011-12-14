@@ -1,7 +1,7 @@
 <div id="page-content">
-  <?php foreach ($activities as $activity): ?>
-    <?php echo $this->element('activity', array(
-      "activity" => $activity
+  <?php foreach ($badges as $badge): ?>
+    <?php echo $this->element('badge', array(
+      "badge" => $badge,
       )); ?>
   <?php endforeach; ?>
 </div>

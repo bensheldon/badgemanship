@@ -59,6 +59,6 @@ class MeasuresSum extends AppModel {
       }
       $this->save($this->data);
     }
-    return true;  
+    return $this->data;  
   }
 }

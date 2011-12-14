@@ -44,12 +44,13 @@ class Activity extends AppModel {
     App::uses('MeasuresSum', 'Model');
     $this->MeasuresSum = new MeasuresSum;
     //Add to the User's totals
-    $this->MeasuresSum->addMeasure(
+    $measuresSum = $this->MeasuresSum->addMeasure(
       'user',
       $this->data['Activity']['user_id'],
       $this->data['Activity']['measure_id'],
       $this->data['Activity']['quantity'],
-      $this->data['Activity']['created']);
+      $this->data['Activity']['created']
+    );
       
       // if there is a Project ID, we need to associate it
       if( (isset($this->data['Activity']['project_id']))
