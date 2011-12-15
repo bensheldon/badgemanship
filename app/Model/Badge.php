@@ -45,10 +45,15 @@ class Badge extends AppModel {
    *   The user_id of the person who we are seeking badges for
    * @param $whose
    *   Are we looking for the user's own badges ('self') or 'all'
+   *    self  : only return badges created by the user_id
+   *    other : only return badges NOT created by the user_id
+   *    all   : return all badges 
    * @param $find
    *   CakePHP's find parameter, e.g. all, first, etc.
    * @param $project_id
    *   Find badges that have been assigned to a particular project
+   *     NULL = find all badges (even those assigned to projects
+   *     FALSE = only find badges not assigned to any project
    * @param $measure_id
    *   Find badges only for a particular measure
    * @param $lt_quantity
@@ -108,16 +113,27 @@ class Badge extends AppModel {
     if ($whose = 'self') {
        $conditions['AND']['Badge.user_id'] = $user_id;
     }
+    elseif($whose = 'others') {
+      $conditions['AND']['Badge.user_id <>' . $user_id];
+    }
     elseif ($whose = 'all') {
       //no conditions, we're looking for everyone's badges
     }
     
     // Add the Project ID if set
-    if ($project_id) {
+    elseif (is_null($project_id)) {
+      // do nothing
+    }
+    elseif (is_numeric($project_id)) {
       $conditions['AND']['Badge.project_id'] = $project_id;
     }
+    elseif($project_id == FALSE) {
+      // return 
+      $conditions['AND']['Badge.project_id'] = '';
+    }
+    
     // Add the Measure ID if set
-    if ($project_id) {
+    if ($measure_id) {
       $conditions['AND']['Badge.measure_id'] = $measure_id;
     }
     
