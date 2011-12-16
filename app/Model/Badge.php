@@ -99,7 +99,11 @@ class Badge extends AppModel {
       )
     ))); 
     
-    // Order by how close (percentage) we are to earning the Badge. Coalesce returns the first Not-NULL Value, so we'll try to sort by the Project's progress (which is null if no project), otherwise the User's progress, which should make a smooth/comprehensive ordering
+    // Order by how close (percentage) we are to earning the Badge.
+    // Coalesce returns the first Not-NULL Value, so we'll try to 
+    // sort by the Project's progress (which is null if no project),
+    // otherwise the User's progress, which should make a smooth/
+    // comprehensive ordering
     $order = 
       'COALESCE( (MeasuresSumProject.quantity_sum / Badge.quantity_goal), (MeasuresSumUser.quantity_sum / Badge.quantity_goal ) ) DESC';
     
@@ -121,16 +125,17 @@ class Badge extends AppModel {
     }
     
     // Add the Project ID if set
-    elseif (is_null($project_id)) {
+    if (is_null($project_id)) {
       // do nothing
-    }
-    elseif (is_numeric($project_id)) {
-      $conditions['AND']['Badge.project_id'] = $project_id;
     }
     elseif($project_id == FALSE) {
       // return 
       $conditions['AND']['Badge.project_id'] = '';
     }
+    elseif (is_numeric($project_id)) {
+      $conditions['AND']['Badge.project_id'] = $project_id;
+    }
+
     
     // Add the Measure ID if set
     if ($measure_id) {
@@ -178,26 +183,100 @@ class Badge extends AppModel {
   
   }
   
-  function earnable($activity) {
+  /**
+   * Function awardForActivity
+   *
+   * Award badges for an activity
+   *
+   * @param $activity
+   *   The activity after it has been saved and MeasuresSum appended to the object
+   *
+   * @return object Activity
+   */
+  
+  function awardForActivity($activity) {
     $user_id = $activity['Activity']['user_id'];
     $measure_id = $activity['Activity']['measure_id'];
+    $user_quantity = $activity['Activity']['MeasuresSumUser']['quantity_sum'];
     
-    // 1. Try to find an unawarded badge for that user & project; can earn multiple badges
-      if ( (isset($activity['Activity']['project_id'])) 
-            && ($activity['Activity']['project_id' != 0]) ) {
-        
-        $badge = $this->find(
-          'all', array('conditions' => 
-            array('Measure.measure_si' => $find_measure))
-        );
-      
-      
-      }
+    $project_quantity= NULL;
+    if ($project_id = $activity['Activity']['project_id']) {
+      $project_quantity = $activity['Activity']['MeasuresSumProject']['quantity_sum'];
+    }
     
-    
-    // 2. Try to find an unawarded badge just for that user; can earn multiple badges
-    
-    // 3. Try to find an unawarded badge for the measure in general; can earn just 1 badge
+    $this->bindModel(
+      array('hasOne' => array(
+        'AwardedBadge' => array(
+          'className' => 'AwardedBadge',
+          'foreignKey' => 'badge_id',
+          'conditions' => array('AwardedBadge.user_id' => $user_id), 
+        ),
+      )
+    ));
   
+    /**
+     * #1. Try to find an unawarded badge for that user AND project; can earn multiple badges
+     */
+    $conditions = array(
+      'AND' => array(
+        'Badge.user_id' => $user_id,
+        'AwardedBadge.id' => '', // we're looking for UN-awarded badges
+      ),
+    );
+    
+    // if there is a project ID, we want to find potential badges that 
+    // are either associated with that project OR not associated with
+    // ANY project
+    if ($project_id) {
+      $conditions['AND']['OR'] = array(
+        'Badge.project_id' => $project_id,
+        'Badge.project_id' => '',
+      );
+      $conditions['AND']['IF'] = array(
+        'ISNULL(Badge.project_id)',
+        'Badge.quantity_goal <=' . $user_quantity,
+        'Badge.quanity_goal <=' . $project_quantity,
+          // If the Badge is not associated with the project, check the User's quantity
+          // otherwise check the Project's quantity to see if we've earned it. 
+      );
+    }
+    else {
+      $conditions['AND']['Badge.project_id'] = '';
+      $conditions['AND']['Badge.quantity_goal <='] = $user_quantity;
+    }
+    
+    $badges = $this->find(
+      $find, array(
+        'conditions' => $conditions,
+        //'order' => '',
+    ));
+    
+    if ($badges) {
+      return $badges;
+    }  
+       
+    /**
+     * 2. Try to find an unawarded badge for the measure in general; 
+     *    can earn just 1 badge
+     */
+    $conditions = array(
+      'AND' => array(
+        'Badge.user_id <>' => $user_id,
+        'AwardedBadge.id' => '', // we're looking for UN-awarded badges
+      ),
+    );
+    
+    $badges = $this->find(
+      $find, array(
+        'conditions' => $conditions,
+        //'order' => '',
+    ));
+    
+    if ($badges) {
+      return $badges;
+    }
+    else {
+      return FALSE;
+    }
   }
 }
