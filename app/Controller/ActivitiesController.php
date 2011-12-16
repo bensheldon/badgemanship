@@ -75,7 +75,8 @@ class ActivitiesController extends AppController {
 	      $this->Activity->set('project_id', $this->data['Activity']['project_id']);
 	    }
 	    
-	    if ($this->Activity->save()) {
+	    if ($activity = $this->Activity->save()) {
+	      debug($activity);
 	    	$this->Session->setFlash('Your activity has been saved.');
 	    	//$this->redirect(array('action' => 'index'));
 	    }
@@ -85,8 +86,9 @@ class ActivitiesController extends AppController {
 	  $this->set('projects', $this->Project->find(
 	    'all', array(
 	      'conditions' => array(
-	        'User.id' => $user_id,
-	      )
+	        'Project.user_id' => $user_id,
+	      ),
+	      'recursive' => -1,
 	    )
 	  ));
 	 
