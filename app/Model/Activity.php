@@ -43,22 +43,33 @@ class Activity extends AppModel {
   function afterSave() {
     App::uses('MeasuresSum', 'Model');
     $this->MeasuresSum = new MeasuresSum;
+    App::uses('Badge', 'Model');
+    $this->Badge = new Badge;
+    
+    $activity = $this->data;
+    
     //Add to the User's totals
-    $measuresSum = $this->MeasuresSum->addMeasure(
+    $user_sum = $this->MeasuresSum->addMeasure(
       'user',
-      $this->data['Activity']['user_id'],
-      $this->data['Activity']['measure_id'],
-      $this->data['Activity']['quantity'],
-      $this->data['Activity']['created']
+      $activity['Activity']['user_id'],
+      $activity['Activity']['measure_id'],
+      $activity['Activity']['quantity'],
+      $activity['Activity']['created']
     );
+    $activity['MeasuresSumUser'] = $user_sum['MeasuresSum'];
       
-      // if there is a Project ID, we need to associate it
-      if( (isset($this->data['Activity']['project_id']))
-            && ($this->data['Activity']['project_id'] != 0) ) {
-        App::uses('Project', 'Model');
-        $this->Project = new Project;
-        $this->Project->addActivity($this->data);
-      }
+    // if there is a Project ID, we need to associate it
+    if( (isset($activity['Activity']['project_id']))
+          && ($activity['Activity']['project_id'] != 0) ) {
+      App::uses('Project', 'Model');
+      $this->Project = new Project;
+      $activity = $this->Project->addActivity($activity);
+    }
+    
+    debug($activity);
+    
+    // Search for and award eligible badges
+    $this->Badge->awardForActivity($activity);
     
     return TRUE;
   } 

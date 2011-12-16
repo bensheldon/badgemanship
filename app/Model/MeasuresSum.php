@@ -44,7 +44,7 @@ class MeasuresSum extends AppModel {
       if ($created) {
         $this->set('modified', $created);
       }
-      $this->save($this->data);
+      $measures_sum = $this->save($this->data);
     }
     else {
       //Doesn't exist, need to create it
@@ -57,8 +57,9 @@ class MeasuresSum extends AppModel {
       if ($created) {
         $this->set('modified', $created);
       }
-      $this->save($this->data);
+      $measures_sum = $this->save($this->data);
     }
-    return $this->data;  
+    // retrieve and return the saved data;
+    return $measures_sum;
   }
 }

@@ -77,7 +77,7 @@ class ActivitiesController extends AppController {
 	    
 	    if ($this->Activity->save()) {
 	    	$this->Session->setFlash('Your activity has been saved.');
-	    	$this->redirect(array('action' => 'index'));
+	    	//$this->redirect(array('action' => 'index'));
 	    }
 	  }
 	  

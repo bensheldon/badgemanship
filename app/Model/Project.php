@@ -36,14 +36,16 @@ class Project extends AppModel {
     
     //Add to the Project's Measures totals
     $this->MeasuresSum = new MeasuresSum;
-    $this->MeasuresSum->addMeasure(
+    $project_sum = $this->MeasuresSum->addMeasure(
       'project',
       $activity['Activity']['project_id'],
       $activity['Activity']['measure_id'],
       $activity['Activity']['quantity'],
       $activity['Activity']['created']);
     
-    return TRUE;  
+    $activity['MeasuresSumProject'] = $project_sum['MeasuresSum'];
+    
+    return $activity;  
   }
   
 }

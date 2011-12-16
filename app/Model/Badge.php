@@ -193,15 +193,18 @@ class Badge extends AppModel {
    *
    * @return object Activity
    */
-  
   function awardForActivity($activity) {
     $user_id = $activity['Activity']['user_id'];
     $measure_id = $activity['Activity']['measure_id'];
-    $user_quantity = $activity['Activity']['MeasuresSumUser']['quantity_sum'];
+    $user_quantity = $activity['MeasuresSumUser']['quantity_sum'];
     
-    $project_quantity= NULL;
-    if ($project_id = $activity['Activity']['project_id']) {
-      $project_quantity = $activity['Activity']['MeasuresSumProject']['quantity_sum'];
+    // If Activity is in a project, set Project ID/Quantity 
+    $project_id = NULL;
+    $project_quantity = NULL;
+    if ( (isset($activity['Activity']['project_id']))
+         && (!is_null($activity['Activity']['project_id'])) ) {
+      $project_id = $activity['Activity']['project_id'];
+      $project_quantity = $activity['MeasuresSumProject']['quantity_sum'];
     }
     
     $this->bindModel(
@@ -220,6 +223,7 @@ class Badge extends AppModel {
     $conditions = array(
       'AND' => array(
         'Badge.user_id' => $user_id,
+        'Badge.measure_id' => $measure_id,
         'AwardedBadge.id' => '', // we're looking for UN-awarded badges
       ),
     );
@@ -229,16 +233,17 @@ class Badge extends AppModel {
     // ANY project
     if ($project_id) {
       $conditions['AND']['OR'] = array(
-        'Badge.project_id' => $project_id,
-        'Badge.project_id' => '',
-      );
-      $conditions['AND']['IF'] = array(
+        'Badge.project_id' =>  $project_id,
         'ISNULL(Badge.project_id)',
-        'Badge.quantity_goal <=' . $user_quantity,
-        'Badge.quanity_goal <=' . $project_quantity,
+      );
+      $conditions['AND'][] =
+        'IF(' .  
+          'ISNULL(Badge.project_id), ' . 
+          'Badge.quantity_goal <=' . $user_quantity . ',' .
+          'Badge.quantity_goal <=' . $project_quantity .
+        ')';
           // If the Badge is not associated with the project, check the User's quantity
           // otherwise check the Project's quantity to see if we've earned it. 
-      );
     }
     else {
       $conditions['AND']['Badge.project_id'] = '';
@@ -246,37 +251,54 @@ class Badge extends AppModel {
     }
     
     $badges = $this->find(
-      $find, array(
+      'all', array(
+        'contain' => array('AwardedBadge'), //return the Badge and AwardedBadge (will be NULL)
         'conditions' => $conditions,
         //'order' => '',
     ));
-    
-    if ($badges) {
-      return $badges;
-    }  
+        
+    if (!$badges) {
+      /**
+       * 2. Try to find an unawarded badge for the measure in general; 
+       *    can earn just 1 badge
+       */
        
-    /**
-     * 2. Try to find an unawarded badge for the measure in general; 
-     *    can earn just 1 badge
-     */
-    $conditions = array(
-      'AND' => array(
-        'Badge.user_id <>' => $user_id,
-        'AwardedBadge.id' => '', // we're looking for UN-awarded badges
-      ),
-    );
+       // rebind the model after every find
+       $this->bindModel(
+         array('hasOne' => array(
+           'AwardedBadge' => array(
+             'className' => 'AwardedBadge',
+             'foreignKey' => 'badge_id',
+             'conditions' => array('AwardedBadge.user_id' => $user_id), 
+           ),
+         )
+       ));
+       
+      $conditions = array(
+        'AND' => array(
+          'Badge.user_id <>' => $user_id,
+          'AwardedBadge.id' => '', // we're looking for UN-awarded badges
+        ),
+      );
+      
+      $badges = $this->find(
+        'first', array( // just return 1 badge 
+          'contain' => array('AwardedBadge'), //return the Badge and AwardedBadge (will be NULL)
+          'conditions' => $conditions,
+          //'order' => '',
+      ));
+    }
     
-    $badges = $this->find(
-      $find, array(
-        'conditions' => $conditions,
-        //'order' => '',
-    ));
-    
-    if ($badges) {
-      return $badges;
+    if (!$badges) {
+      return $activity;
     }
     else {
-      return FALSE;
+      // unset the empty AwardedBadge data
+      foreach($badges as &$badge) {
+        unset($badge['AwardedBadge']);
+      }
+      debug($badges);
     }
+    
   }
 }
