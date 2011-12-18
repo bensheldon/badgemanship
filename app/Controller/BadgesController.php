@@ -4,7 +4,7 @@ class BadgesController extends AppController {
 	var $helpers = array('Html', 'Html', 'Form', 'Ajax', 'Markdown', 'Time'); 
 	var $components = array('RequestHandler');
 	var $actsAs = array('Containable');
-	var $uses = array('Badge', 'User', 'Activity', 'Project', 'Measure');
+	var $uses = array('Badge', 'User', 'Activity', 'Measure');
 
 
 	function index($username = '') {
@@ -36,19 +36,6 @@ class BadgesController extends AppController {
 	        ),
 	      )
 	    )));
-	    $this->Badge->bindModel(
-	      array('hasOne' => array(
-	        'MeasuresSumProject' => array(
-	          'className' => 'MeasuresSum',
-	          'foreignKey' => FALSE, 
-	          'conditions' => array(
-	            'MeasuresSumProject.parent_type' => 'project',
-	            'MeasuresSumProject.parent_id = Badge.project_id',
-	            'MeasuresSumProject.measure_id = Badge.measure_id', 
-	        ),
-	      )
-	    ))); 
-	     
 	  
 	    $this->set('badges', $this->Badge->find(
 	      'all', array(
@@ -91,25 +78,11 @@ class BadgesController extends AppController {
 	        'quantity_goal' => $this->data['Badge']['quantity_goal'],    
 	    ));
 	    
-	    if( isset($this->data['Badge']['project_id']) 
-	          && ($this->data['Badge']['project_id'] != 0) ) {
-	      $this->Badge->set('project_id', $this->data['Badge']['project_id']);
-	    }
-	    
 	    if ($this->Badge->save()) {
 	    	$this->Session->setFlash('Your badge has been saved.');
 	    	$this->redirect(array('action' => 'index'));
 	    }
 	  }
-	  
-	  // Set the Projects
-	  $this->set('projects', $this->Project->find(
-	    'all', array(
-	      'conditions' => array(
-	        'User.id' => $user_id,
-	      )
-	    )
-	  ));
 	 
 	   // render 
 	}
