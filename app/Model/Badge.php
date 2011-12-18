@@ -298,6 +298,7 @@ class Badge extends AppModel {
         unset($badge['AwardedBadge']);
                 
         // Actually award the badges
+        $this->AwardedBadge->create();
         $awarded_badge = array();
         $awarded_badge = array(
           'badge_id' => $badge['Badge']['id'],

@@ -76,8 +76,16 @@ class ActivitiesController extends AppController {
 	    }
 	    
 	    if ($activity = $this->Activity->save()) {
+	      $message = 'Your activity has been saved.';
+	      
+	      //Any badges awarded?
+	      if ( (isset($activity['AwardedBadge'])) 
+	            && ($badges_count = count($activity['AwardedBadge'])) ){
+	        $message .= ' You earned ' . ($badges_count == 1 ? 'one badge': $badges_count . ' badges');
+	      }
+	      
 	      debug($activity);
-	    	$this->Session->setFlash('Your activity has been saved.');
+	    	$this->Session->setFlash($message);
 	    	//$this->redirect(array('action' => 'index'));
 	    }
 	  }
