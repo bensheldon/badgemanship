@@ -8,7 +8,6 @@ CREATE TABLE `activities` (
   `quantity` float NOT NULL DEFAULT '0',
   `measure` text NOT NULL,
   `measure_id` int(11) unsigned DEFAULT NULL,
-  `project_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -29,7 +28,6 @@ CREATE TABLE `badges` (
   `title` text NOT NULL,
   `description` text NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
-  `project_id` int(10) unsigned DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `awarded_badges_count` int(10) unsigned NOT NULL DEFAULT '0',
@@ -58,19 +56,6 @@ CREATE TABLE `measures_sums` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-CREATE TABLE `projects` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned DEFAULT NULL,
-  `title` text NOT NULL,
-  `description` text NOT NULL,
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  `activity_count` int(10) unsigned NOT NULL DEFAULT '0',
-  `badge_count` int(11) NOT NULL DEFAULT '0',
-  `measures_sum_count` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `twitter_id` int(11) NOT NULL,
@@ -84,7 +69,6 @@ CREATE TABLE `users` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `activity_count` int(11) NOT NULL,
-  `project_count` int(11) NOT NULL,
   `awarded_badge_count` int(11) NOT NULL DEFAULT '0',
   `measures_sum_count` int(11) NOT NULL,
   PRIMARY KEY (`id`),
