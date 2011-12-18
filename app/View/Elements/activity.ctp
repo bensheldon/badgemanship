@@ -8,11 +8,7 @@
        x 
       <span class="quantity"><?php echo $activity['Activity']['quantity'] ?></span>
     </p>
-    <?php if ($activity['Project']['title']) : ?>
-      <p class="project">
-        <?php echo $this->Html->link($activity['Project']['title'], array('controller' => 'projects', 'action' => 'view', $activity['Project']['id'])) ?>
-      </p> 
-    <?php endif; ?>  
+
     <p class="author"><img src="<?php echo $activity['User']['image'] ?>" alt="<?php echo $activity['User']['username'] ?>'s avatar"><?php echo $activity['User']['username'] ?></p>
     <p class="published">
       <?php echo $this->Html->link(

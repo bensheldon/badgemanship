@@ -4,7 +4,7 @@ class ActivitiesController extends AppController {
 	var $helpers = array('Html', 'Html', 'Form', 'Ajax', 'Markdown', 'Time'); 
 	var $components = array('RequestHandler');
 	var $actsAs = array('Containable');
-	var $uses = array('Activity', 'User', 'Project', 'MeasuresSum');
+	var $uses = array('Activity', 'User', 'MeasuresSum');
 
 
 	function index() {
@@ -70,11 +70,6 @@ class ActivitiesController extends AppController {
 	        'measure' => $this->data['Activity']['measure'],
 	    ));
 	    
-	    if( isset($this->data['Activity']['project_id']) 
-	          && ($this->data['Activity']['project_id'] != 0) ) {
-	      $this->Activity->set('project_id', $this->data['Activity']['project_id']);
-	    }
-	    
 	    if ($activity = $this->Activity->save()) {
 	      $message = 'Your activity has been saved.';
 	      
@@ -88,16 +83,6 @@ class ActivitiesController extends AppController {
 	    	$this->redirect(array('action' => 'index'));
 	    }
 	  }
-	  
-	  // Set the Projects
-	  $this->set('projects', $this->Project->find(
-	    'all', array(
-	      'conditions' => array(
-	        'Project.user_id' => $user_id,
-	      ),
-	      'recursive' => -1,
-	    )
-	  ));
 	 
 	   // render 
 	}

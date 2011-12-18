@@ -8,12 +8,6 @@
         <li><?php echo $this->Html->link('Activity', array('controller' => 'activities', 'action' => 'add')) ?></li>
       <?php endif; ?>
   
-    <?php if ($active == 'project') : ?>
-      <li class="active"><span>Project</span></li>
-    <?php else : ?>
-      <li><?php echo $this->Html->link('Project', array('controller' => 'projects', 'action' => 'add')) ?></li>
-    <?php endif; ?>
-  
     <?php if ($active == 'badge') : ?>
       <li class="active"><span>Badge</span></li>
     <?php else : ?>

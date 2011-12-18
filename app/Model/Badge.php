@@ -16,11 +16,6 @@ class Badge extends AppModel {
       'foreignKey'   => 'measure_id',
       'counterCache' => true,
     ),
-    'Project' =>array(
-      'className'    => 'Project',
-      'foreignKey'   => 'project_id',
-      'counterCache' => true,
-    ),
   );
   
   function beforeSave() {
@@ -50,10 +45,6 @@ class Badge extends AppModel {
    *    all   : return all badges 
    * @param $find
    *   CakePHP's find parameter, e.g. all, first, etc.
-   * @param $project_id
-   *   Find badges that have been assigned to a particular project
-   *     NULL = find all badges (even those assigned to projects
-   *     FALSE = only find badges not assigned to any project
    * @param $measure_id
    *   Find badges only for a particular measure
    * @param $lt_quantity
@@ -61,7 +52,7 @@ class Badge extends AppModel {
    *
    * @return object Badge(s)
    */
-  function findUserProgress($user_id, $whose = 'self', $find = 'all', $project_id = NULL, $measure_id = NULL, $lt_quantity = NULL) {
+  function findUserProgress($user_id, $whose = 'self', $find = 'all', $measure_id = NULL, $lt_quantity = NULL) {
     // bind the User's Awarded badge to the model, so it's joined on Find()... though we'll set a condition to disregard Badges that have an AwardedBadge since we're looking for *unawarded badges*
     $this->bindModel(
       array('hasOne' => array(
@@ -73,7 +64,7 @@ class Badge extends AppModel {
       )
     ));
     
-    //Bind measure's sum (User, then Project) so we know progress
+    //Bind measure's User Sumg
     $this->bindModel(
       array('hasOne' => array(
         'MeasuresSumUser' => array(
@@ -86,26 +77,9 @@ class Badge extends AppModel {
         ),
       )
     )));
-    $this->bindModel(
-      array('hasOne' => array(
-        'MeasuresSumProject' => array(
-          'className' => 'MeasuresSum',
-          'foreignKey' => FALSE, 
-          'conditions' => array(
-            'MeasuresSumProject.parent_type' => 'project',
-            'MeasuresSumProject.parent_id = Badge.project_id',
-            'MeasuresSumProject.measure_id = Badge.measure_id', 
-        ),
-      )
-    ))); 
     
     // Order by how close (percentage) we are to earning the Badge.
-    // Coalesce returns the first Not-NULL Value, so we'll try to 
-    // sort by the Project's progress (which is null if no project),
-    // otherwise the User's progress, which should make a smooth/
-    // comprehensive ordering
-    $order = 
-      'COALESCE( (MeasuresSumProject.quantity_sum / Badge.quantity_goal), (MeasuresSumUser.quantity_sum / Badge.quantity_goal ) ) DESC';
+    $order = '(MeasuresSumUser.quantity_sum / Badge.quantity_goal ) DESC';
     
     $conditions = array(
       'AND' => array(
@@ -123,19 +97,6 @@ class Badge extends AppModel {
     elseif ($whose = 'all') {
       //no conditions, we're looking for everyone's badges
     }
-    
-    // Add the Project ID if set
-    if (is_null($project_id)) {
-      // do nothing
-    }
-    elseif($project_id == FALSE) {
-      // return 
-      $conditions['AND']['Badge.project_id'] = '';
-    }
-    elseif (is_numeric($project_id)) {
-      $conditions['AND']['Badge.project_id'] = $project_id;
-    }
-
     
     // Add the Measure ID if set
     if ($measure_id) {
@@ -168,13 +129,11 @@ class Badge extends AppModel {
    *   Are we looking for the user's own badges ('self') or 'all'
    * @param $find
    *   CakePHP's find parameter, e.g. all, first, etc.
-   * @param $project_id
-   *   Find badges that have been assigned to a particular project
    * @param $measure_id
    *   Find badges only for a particular measure
    * @return object Badge(s)
    */
-  function findUserAwarded($user_id, $whose = 'self', $find = 'all', $project_id = NULL, $measure_id = NULL) {
+  function findUserAwarded($user_id, $whose = 'self', $find = 'all', $measure_id = NULL) {
     
     App::uses('AwardedBadge', 'Model');
     $this->AwardedBadge = new AwardedBadge;
@@ -198,15 +157,6 @@ class Badge extends AppModel {
     $measure_id = $activity['Activity']['measure_id'];
     $user_quantity = $activity['MeasuresSumUser']['quantity_sum'];
     
-    // If Activity is in a project, set Project ID/Quantity 
-    $project_id = NULL;
-    $project_quantity = NULL;
-    if ( (isset($activity['Activity']['project_id']))
-         && (!is_null($activity['Activity']['project_id'])) ) {
-      $project_id = $activity['Activity']['project_id'];
-      $project_quantity = $activity['MeasuresSumProject']['quantity_sum'];
-    }
-    
     $this->bindModel(
       array('hasOne' => array(
         'AwardedBadge' => array(
@@ -218,37 +168,17 @@ class Badge extends AppModel {
     ));
   
     /**
-     * #1. Try to find an unawarded badge for that user AND project; can earn multiple badges
+     * #1. Try to find an unawarded badge for that user
      */
     $conditions = array(
       'AND' => array(
         'Badge.user_id' => $user_id,
         'Badge.measure_id' => $measure_id,
         'AwardedBadge.id' => '', // we're looking for UN-awarded badges
+        'Badge.quantity_goal <=' => $user_quantity
+        
       ),
     );
-    
-    // if there is a project ID, we want to find potential badges that 
-    // are either associated with that project OR not associated with
-    // ANY project
-    if ($project_id) {
-      $conditions['AND']['OR'] = array(
-        'Badge.project_id' =>  $project_id,
-        'ISNULL(Badge.project_id)',
-      );
-      $conditions['AND'][] =
-        'IF(' .  
-          'ISNULL(Badge.project_id), ' . 
-          'Badge.quantity_goal <=' . $user_quantity . ',' .
-          'Badge.quantity_goal <=' . $project_quantity .
-        ')';
-          // If the Badge is not associated with the project, check the User's quantity
-          // otherwise check the Project's quantity to see if we've earned it. 
-    }
-    else {
-      $conditions['AND']['Badge.project_id'] = '';
-      $conditions['AND']['Badge.quantity_goal <='] = $user_quantity;
-    }
     
     $badges = $this->find(
       'all', array(

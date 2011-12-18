@@ -15,11 +15,6 @@ class Activity extends AppModel {
       'foreignKey'   => 'measure_id',
       'counterCache' => true,
     ),
-    'Project' =>array(
-      'className'    => 'Project',
-      'foreignKey'   => 'project_id',
-      'counterCache' => true,
-    ),
   );
   
   /**
@@ -57,14 +52,6 @@ class Activity extends AppModel {
       $activity['Activity']['created']
     );
     $activity['MeasuresSumUser'] = $user_sum['MeasuresSum'];
-      
-    // if there is a Project ID, we need to associate it
-    if( (isset($activity['Activity']['project_id']))
-          && ($activity['Activity']['project_id'] != 0) ) {
-      App::uses('Project', 'Model');
-      $this->Project = new Project;
-      $activity = $this->Project->addActivity($activity);
-    }
         
     // Search for and award eligible badges
     $activity = $this->Badge->awardForActivity($activity);

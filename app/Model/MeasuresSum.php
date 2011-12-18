@@ -17,13 +17,6 @@ class MeasuresSum extends AppModel {
       'counterCache' => true,
       'counterScope' => array('MeasuresSum.parent_type' => 'user'),
     ),
-    'Project' => array(            
-      'className'    => 'Project',            
-      'foreignKey'   => 'parent_id',
-      'conditions' => array('parent_type' => 'project'),
-      'counterCache' => true,
-      'counterScope' => array('MeasuresSum.parent_type' => 'project'),
-    ),
   );
   
   public function addMeasure($parent_type, $parent_id, $measure_id, $quantity, $created = false) {
