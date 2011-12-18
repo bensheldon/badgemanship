@@ -84,9 +84,8 @@ class ActivitiesController extends AppController {
 	        $message .= ' You earned ' . ($badges_count == 1 ? 'one badge': $badges_count . ' badges');
 	      }
 	      
-	      debug($activity);
-	    	$this->Session->setFlash($message);
-	    	//$this->redirect(array('action' => 'index'));
+	      $this->Session->setFlash($message);
+	    	$this->redirect(array('action' => 'index'));
 	    }
 	  }
 	  

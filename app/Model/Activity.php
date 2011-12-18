@@ -70,7 +70,6 @@ class Activity extends AppModel {
     $activity = $this->Badge->awardForActivity($activity);
     
     $this->data = $activity;
-    
     return TRUE;
   } 
   
