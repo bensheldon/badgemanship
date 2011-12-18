@@ -2,7 +2,7 @@
 
 class AwardedBadge extends AppModel {
   var $name = 'AwardedBadge';
-  var $order = array("AwardedBadge.awarded" => "DESC");
+  var $order = array("AwardedBadge.created" => "DESC");
   var $actsAs = array('Containable');
   
   var $belongsTo =  array(

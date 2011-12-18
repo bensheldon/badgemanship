@@ -296,8 +296,24 @@ class Badge extends AppModel {
       // unset the empty AwardedBadge data
       foreach($badges as &$badge) {
         unset($badge['AwardedBadge']);
+                
+        // Actually award the badges
+        $awarded_badge = array();
+        $awarded_badge = array(
+          'badge_id' => $badge['Badge']['id'],
+          'user_id' => $user_id,
+          'created' => $activity['Activity']['created'],
+          'measure_id' => $badge['Badge']['measure_id'],
+          'activity_id' => $activity['Activity']['id'],
+        );
+        // Save the awardedbadgea nd add it to the badge object
+        $awarded_badge = $this->AwardedBadge->save($awarded_badge);
+        $badge['AwardedBadge'] = $awarded_badge['AwardedBadge'];
       }
-      debug($badges);
+      
+      //append the saved awarded badge to the $activity object
+      $activity['AwardedBadge'] = $badges;
+      return $activity;
     }
     
   }

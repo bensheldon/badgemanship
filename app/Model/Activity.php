@@ -65,11 +65,11 @@ class Activity extends AppModel {
       $this->Project = new Project;
       $activity = $this->Project->addActivity($activity);
     }
-    
-    debug($activity);
-    
+        
     // Search for and award eligible badges
-    $this->Badge->awardForActivity($activity);
+    $activity = $this->Badge->awardForActivity($activity);
+    
+    $this->data = $activity;
     
     return TRUE;
   } 
