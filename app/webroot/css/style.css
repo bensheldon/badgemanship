@@ -74,14 +74,14 @@ div.secondary-nav ul li a,div.secondary-nav ul li span{padding:.5em;-moz-border-
 div.secondary-nav ul li a:hover{color:#fff;background-color:#0069D6;}
 div.secondary-nav ul li.active span{color:white;text-shadow:0 1px 1px rgba(0, 0, 0, 0.25);background-color:#0069D6;}
 div#page-content{padding:10px 6% 10px;}
-article.activity{padding-bottom:20px;border-bottom:1px solid #ddd;}
-article.activity:last-child{padding-bottom:20px;border-bottom:none;}
+article{padding-bottom:20px;border-bottom:1px solid #ddd;}article:last-child{padding-bottom:20px;border-bottom:none;}
 article.activity footer>*{width:50%;margin:0;}
 article.activity p.measure,article.activity p.project{float:left;clear:left;}
 article.activity span.label,article.activity span.quantity{font-weight:bold;}
-article.activity p.author,article.activity p.published{margin-left:50%;}
+article.activity p.author,article.activity article.activity p.published{margin-left:50%;}
 article.activity p.project,article.activity p.published{font-size:.9em;color:#777;}
 article.activity footer p.author img{height:1.25em;vertical-align:text-top;margin-right:.5em;}
+article.badge div.progress-meter{background:#aaa;}article.badge div.progress-meter .progress-meter-current{display:inline-block;background:#ADFF6F;text-align:right;}
 @media only screen and (max-width: 320px){}@media only screen and (min-width: 321px) and (max-width: 480px){}@media only screen and (min-width: 481px) and (max-width: 768px){}@media only screen and (min-width: 769px) and (max-width: 1024px){}@media only screen and (min-width: 1023px) and (max-width: 1280px){}@media only screen and (min-width: 1281px){}.ir{display:block;border:0;text-indent:-999em;overflow:hidden;background-color:transparent;background-repeat:no-repeat;text-align:left;direction:ltr;}
 .ir br{display:none;}
 .hidden{display:none !important;visibility:hidden;}

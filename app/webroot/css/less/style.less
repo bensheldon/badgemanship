@@ -195,48 +195,62 @@ div#page-content {
   padding: 10px 6% 10px;
 }
 
-article.activity {
+article {
   padding-bottom:  20px;
   border-bottom: 1px solid #ddd;
+  
+  &:last-child {
+    padding-bottom:  20px;
+    border-bottom: none;
+  }
 }
 
-article.activity:last-child {
-  padding-bottom:  20px;
-  border-bottom: none;
+
+article.activity {
+  footer > * {
+    width: 50%;
+    margin: 0;
+  }
+
+  p.measure,
+  p.project {
+    float: left;
+    clear: left;
+  }
+  
+  span.label,
+  span.quantity {
+    font-weight: bold;
+  }
+  
+  p.author,
+  article.activity p.published {
+    margin-left: 50%;
+  }
+  
+  p.project,
+  p.published {
+    font-size: .9em;
+    color: #777;
+  }
+  
+  footer p.author img {
+    height: 1.25em;
+    vertical-align: text-top;
+    margin-right: .5em;
+  }
 }
 
-
-article.activity footer > * {
-  width: 50%;
-  margin: 0;
-}
-
-article.activity p.measure,
-article.activity p.project {
-  float: left;
-  clear: left;
-}
-
-article.activity span.label,
-article.activity span.quantity {
-  font-weight: bold;
-}
-
-article.activity p.author,
-article.activity p.published {
-  margin-left: 50%;
-}
-
-article.activity p.project,
-article.activity p.published {
-  font-size: .9em;
-  color: #777;
-}
-
-article.activity footer p.author img {
-  height: 1.25em;
-  vertical-align: text-top;
-  margin-right: .5em;
+article.badge {
+  div.progress-meter {
+    background: #aaa;
+  
+    .progress-meter-current {
+      display: inline-block;
+      background: #ADFF6F;
+      text-align: right;
+    } 
+  }
 }
 
 
