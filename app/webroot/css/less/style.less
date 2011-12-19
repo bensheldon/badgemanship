@@ -316,7 +316,9 @@ article.badge {
       background: @med_purple;
       text-align: right;
       #hl.rounded-corners(6px, 0, 0, 6px);
-      #hl.drop-shadow(1px, 0, 1px, rgba(0,0,0,.3);
+      border-right: 2px solid #777;
+      #hl.inner-shadow(0, 2px, 1px, rgba(255,255,255,.2);
+      
 //      #hl.background-gradient(@med_purple, @lt_purple 50%, @med_purple 50%);
       padding: 4px 7px;
      /** 
@@ -336,7 +338,8 @@ article.badge {
       .progress-meter-current {
          #hl.rounded-corners(6px, 6px, 6px, 6px);
          #hl.drop-shadow(0,0,0);
-         
+         #hl.inner-shadow(0, 2px, 1px, rgba(255,255,255,.2);
+         border-right: none;
        }
     }
   }
