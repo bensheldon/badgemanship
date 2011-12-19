@@ -49,6 +49,7 @@ class ActivitiesController extends AppController {
 	      	  'MeasuresSum.parent_type' => 'user',
 	          'MeasuresSum.parent_id' => $user_id,
 	      ),
+	      'order' => 'Measure.measure_si ASC',
 	      'contain' => array('Measure'),
 	    )
 	  );
