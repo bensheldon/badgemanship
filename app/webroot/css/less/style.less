@@ -11,6 +11,10 @@
    Author:
   ========================================================================== */
 
+@lt_purple: #946acd;
+@med_purple: #8251c5; 
+@dark_purple: #28008a;
+
 body {
   background: #eee;
   margin-top: 40px; /* to make room for the header topbar */
@@ -42,9 +46,9 @@ header {
   }
 
   h1 {
-    margin: 0 auto 0;
+    margin: 0 0 0 25px;
     padding-top: 3px;
-    text-align: center;
+    text-align: left;
     font-size: 1em;
     line-height: 1;
     overflow: hidden;
@@ -82,7 +86,7 @@ header {
   
   a#add-activity {
     top: 4px;
-    left: 6%;
+    left: 3%;
   }
   
   ul#primary-nav {
@@ -91,7 +95,7 @@ header {
     height: 40px;
     position: absolute;
     top: 0;
-    right: 6%;
+    right: 3%;
     
     li {
       list-style: none;
@@ -101,9 +105,17 @@ header {
     
     .dropdown-toggle {
       position: absolute;
-      top: 12px;
+      padding: 0 10px;
       right: 6%;
-      #hl.text-shadow(0, 0, 2px, rgb(0,0,0, .8);      
+      color: rgba(255,255,255, 0.9);
+      font-weight: bold;
+      height: 40px;
+      line-height: 40px;
+      #hl.text-shadow(0, 1px, 0, @dark_purple);
+      
+        &:hover {
+          background: rgba(255,255,255, 0.2);
+        }
     }
     
     ul.dropdown-menu {
@@ -255,11 +267,25 @@ article.activity {
 article.badge {
   div.progress-meter {
     background: #aaa;
+    #hl.rounded-corners(6px);
+    #hl.inner-shadow(0, 1px, 1px, rgba(0,0,0,.3);
+    
   
     .progress-meter-current {
       display: inline-block;
-      background: #ADFF6F;
+      background: @med_purple;
       text-align: right;
+      #hl.rounded-corners(6px, 0, 0, 6px);
+      #hl.drop-shadow(1px, 0, 1px, rgba(0,0,0,.3);
+      #hl.background-gradient(@med_purple, @lt_purple 50%, @med_purple 50%);
+      padding: 2px 5px;
+      
+      
+      span {
+        color: #fff;
+        color: rgba(255,255,255, 0.9); 
+        #hl.text-shadow(0, 1px, 0, @dark_purple);
+      }        
     } 
   }
 }
