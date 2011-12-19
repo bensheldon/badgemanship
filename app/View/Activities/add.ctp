@@ -15,7 +15,7 @@
       
       <div class="input-measure">
         <label for="ActivityMeasure">Measure</label>
-        <input name="data[Activity][measure]" id="ActivityMeasure" placeholder="the label e.g. cats, hours of sleep...">
+        <input name="data[Activity][measure]" id="ActivityMeasure" placeholder="label e.g. cats, hours of sleep...">
       </div>
       
       <div class="input-description">
