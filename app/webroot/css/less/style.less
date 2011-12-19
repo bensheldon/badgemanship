@@ -270,7 +270,6 @@ article.badge {
     #hl.rounded-corners(6px);
     #hl.inner-shadow(0, 1px, 1px, rgba(0,0,0,.3);
     
-  
     .progress-meter-current {
       display: inline-block;
       background: @med_purple;
@@ -278,8 +277,7 @@ article.badge {
       #hl.rounded-corners(6px, 0, 0, 6px);
       #hl.drop-shadow(1px, 0, 1px, rgba(0,0,0,.3);
       #hl.background-gradient(@med_purple, @lt_purple 50%, @med_purple 50%);
-      padding: 2px 5px;
-      
+      padding: 4px 7px;
       
       span {
         color: #fff;
@@ -287,6 +285,15 @@ article.badge {
         #hl.text-shadow(0, 1px, 0, @dark_purple);
       }        
     } 
+  }
+  &.awarded {
+    .progress-meter {
+      .progress-meter-current {
+         #hl.rounded-corners(6px, 6px, 6px, 6px);
+         #hl.drop-shadow(0,0,0);
+         
+       }
+    }
   }
 }
 
