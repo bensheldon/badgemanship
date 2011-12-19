@@ -57,7 +57,7 @@ table{border-collapse:collapse;border-spacing:0;}
 td{vertical-align:top;}
 body{background:#eee;margin-top:40px;padding:0 10px 10px;}
 .container{margin:0 auto;max-width:480px;padding:0;}
-header{position:fixed;top:0;left:0;height:40px;width:100%;-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);z-index:1500;color:#fff;background:#000000 url('/img/header-bg.png');}header #header-content{padding:0 6%;position:relative;}
+header{position:fixed;top:0;left:0;height:40px;width:100%;-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);z-index:1500;color:#fff;background:#8251c5 url('/img/header-bg.png');}header #header-content{padding:0 6%;position:relative;}
 header h1{margin:0 auto 0;padding-top:3px;text-align:center;font-size:1em;line-height:1;overflow:hidden;text-indent:-4000px;width:141px;}header h1 a{display:block;width:141px;height:36px;background:transparent url('/img/badgemanship-logo.png') center center no-repeat;}
 header a,header a:visited,header a:hover{color:#fff;text-decoration:none;}
 header a#add-activity{position:absolute;margin-top:4px;display:block;text-decoration:none;display:block;height:25px;width:25px;text-align:left;text-indent:-4000px;background:transparent url('/img/add-icon.png') no-repeat;}
