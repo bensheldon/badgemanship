@@ -4,8 +4,44 @@
 /* ==|== Import HTML5 ✰ Boilerplate LESS library =========================== */
 @import 'libs/boilerplate.less';
 
+@import 'libs/forms.less';
+
 /* Normalize */
 #blr.normalize(#0abbcd, #555);
+
+/**
+ * flexible sizings from Golden Grid System
+ *
+ */
+input, textarea, button, select {
+	margin: 0;
+	font-size: 100%;
+	line-height: normal;
+	vertical-align: baseline;
+}
+button,
+html input[type="button"], 
+input[type="reset"], 
+input[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+input[type="checkbox"],
+input[type="radio"] {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		   -o-box-sizing: border-box;
+		  -ms-box-sizing: border-box;
+			    box-sizing: border-box;
+}
+textarea {
+	overflow: auto;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 
 /* ==|== primary styles =====================================================
    Author:
@@ -14,6 +50,7 @@
 @lt_purple: #946acd;
 @med_purple: #8251c5; 
 @dark_purple: #28008a;
+
 
 body {
   background: #eee;
@@ -178,6 +215,7 @@ div.secondary-nav {
   float:left;
   width: 100%;
   
+  
   ul {
     list-style:none;
     padding: 0;
@@ -194,20 +232,23 @@ div.secondary-nav {
   
     li a, 
     li span {
+      @transition: background ease .1s;
+      .transition(@transition);
       padding: .5em;
       #hl.rounded-corners(10px, 10px, 10px, 10px);
       text-decoration: none;
+      color: @med_purple;
     }
     
     li a:hover {
       color: #fff;
-      background-color: #0069D6;
+      background-color: @med_purple;
     }
   
     li.active span {
       color: white;
       text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-      background-color: #0069D6;
+      background-color: @med_purple;
     }
   }
 }
@@ -297,6 +338,88 @@ article.badge {
   }
 }
 
+#ActivityAddForm {
+  label {
+    display: none;
+  }
+  
+  input {
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  .submit {
+    width:  60%;
+    margin: auto;
+    text-align: center;
+    
+    input {    
+      @transition: background linear .1s;
+      .transition(@transition);
+    
+      background: @med_purple;
+      #hl.background-gradient(@med_purple, @lt_purple 50%, @med_purple 50%);
+      color: white;
+      #hl.rounded-corners(6px);
+      #hl.text-shadow(0, 1px, 0, @dark_purple);
+      border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+      
+      &:hover {
+        background: darken(@med_purple, 10%);
+        #hl.text-shadow(0, -1px, 0, @dark_purple);
+        
+      }
+      &:focus,
+      &:active {
+        background: @lt_purple;       
+      }
+      
+    }
+  }
+  
+  .quantity-measure {
+    input {
+      font-size: 16px;
+      padding: 8px 4%;
+      width: 92%;
+      line-height: 20px;
+    }
+    .input-quantity {
+      width: 20%;
+      float: left;
+      
+      input {
+        padding: 8px 10%;
+        width: 80%;
+      }
+    }
+    
+    .label-x {
+      width: 10%;
+      float: left;
+      text-align: center;
+      line-height: 32px;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    .input-measure {
+      width: 70%;
+      float: right;
+    }
+    .input-description {
+      clear: both;
+      textarea {
+        margin: 10px 0 6px;
+        width: 92%;
+        padding: 8px 4%;
+      }
+    }
+  
+  }
+}
 
 /* ==|== media queries ====================================================== */
 /* Screen width <= 320px */
@@ -329,8 +452,3 @@ article.badge {
 
 }
 
-/* ==|== endos ==============================================================
-   Please define your styles before this section.
-   ========================================================================== */
-#blr.ns-helpers();
-@media print { #blr.media-print(); }
