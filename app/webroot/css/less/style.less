@@ -317,8 +317,13 @@ article.badge {
       text-align: right;
       #hl.rounded-corners(6px, 0, 0, 6px);
       #hl.drop-shadow(1px, 0, 1px, rgba(0,0,0,.3);
-      #hl.background-gradient(@med_purple, @lt_purple 50%, @med_purple 50%);
+//      #hl.background-gradient(@med_purple, @lt_purple 50%, @med_purple 50%);
       padding: 4px 7px;
+     /** 
+      * Diagonal stripes
+      */
+     background: -webkit-linear-gradient(-45deg, lighten(@med_purple, 5%) 25%, @med_purple 25%, @med_purple 50%, lighten(@med_purple, 5%) 50%, lighten(@med_purple, 5%) 75%, @med_purple 75%, @med_purple);
+     background-size:60px 60px;
       
       span {
         color: #fff;
